@@ -7,7 +7,20 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Poppins', 'sans-serif'],
+        sans: ['Poppins', 'Times Roman'],
+      },
+    },
+  },
+  theme: {
+    extend: {
+      keyframes: {
+        slideIn: {
+          '0%': { transform: 'translateX(-100%)', opacity: -2 },
+          '100%': { transform: 'translateX(0)', opacity: 1 },
+        },
+      },
+      animation: {
+        'slide-in': 'slideIn 2s ease-out backwards',
       },
     },
   },
@@ -15,8 +28,8 @@ export default {
     require('tailwindcss-filters'),
     plugin(function({ addUtilities }) {
       const newUtilities = {
-        '.backdrop-blur-3': {
-          backdropFilter: 'blur(3px)',
+        '.backdrop-blur-4': {
+          backdropFilter: 'blur(6px)',
         },
       }
 

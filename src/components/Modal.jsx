@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 const Modal = ({ isVisible, onClose, type, content }) => {
   if (!isVisible) return null;
 
-  const bgColor = type === 'correct' ? 'bg-green-500' : 'bg-red-500';
+  const bgColor = type === "correct" ? "bg-green-500" : "bg-red-500";
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
