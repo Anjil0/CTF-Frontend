@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-// import NavBar from "./navbar.jsx";
+import NavBar from "../components/NavBar";
 
 const scenarios = [
   {

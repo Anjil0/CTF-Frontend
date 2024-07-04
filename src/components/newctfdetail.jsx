@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Import axios for API calls
-import img from '../assets/img.png'; // Ensure this path is correct based on your project structure
-import greenFlagImage from '../assets/greenflag.png'; // Path to your green flag image
-import redFlagImage from '../assets/redflag.png'; // Path to your red flag image
-import Popup from './popup'; // Correct import path and casing
+import React, { useState, useEffect } from "react";
+import img from "../assets/img.png";
+import greenFlagImage from "../assets/greenflag.png";
+import redFlagImage from "../assets/redflag.png";
+import Confetti from "react-confetti";
+import NavBar from "../components/NavBar";
 
 function CtfDetail() {
   const [answers, setAnswers] = useState({ answer1: '', answer2: '' });
