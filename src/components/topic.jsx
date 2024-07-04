@@ -1,25 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import img1 from '../assets/img1.jpeg';
-//import NavBar from 'NavBar';
+// import Header from './navbar';
+// import './App.css';
 
 const Topic = () => {
-  const navigate = useNavigate();
   const [topics, setTopics] = useState([]);
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTopics = async () => {
       try {
-        const response = await axios.get('http://localhost:5300/api/topic/getAllTopic'); // URL of the backend API
-        if (Array.isArray(response.data)) {
-          setTopics(response.data);
-        } else {
-          setError('Unexpected response format');
-        }
-      } catch (error) {
+        const response = await axios.get('http://localhost:5300/api/topic/getAllTopic');
+        console.log("response from get topics", response)
+        setTopics(response.data?.Result?.Topics);
+      } catch (err) {
         setError('Failed to fetch topics');
       } finally {
         setLoading(false);
@@ -29,17 +27,11 @@ const Topic = () => {
     fetchTopics();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   return (
     <>
+      {/* <Header/> */}
       <div className="flex w-full min-h-screen bg-gray-700 ">
+        {/* Sidebar Navigation */}
         <nav className="w-1/6 bg-gray-800 text-white font-size-15 p-4 min-h-screen bg-gray-500">
           <h2 className="text-2xl font-bold mb-10">Dive Into Challenges..</h2>
           <ul>
@@ -58,29 +50,40 @@ const Topic = () => {
           </ul>
         </nav>
 
+        {/* Main Content */}
         <div className="flex-grow p-12">
+          {/* Hero Section */}
           <div className="bg-gray-200 p-10 mb-6 rounded-lg shadow-lg text-center">
             <h1 className="text-4xl font-bold text-gray-800">Welcome to the Cybersecurity Learning Platform</h1>
             <p className="mt-4 text-gray-600">Explore the topics below to start your journey in cybersecurity.</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-14">
-            {topics.map(topic => (
-              <div key={topic.id} className="relative bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <img src={img1} alt={topic.title} className="w-full h-48 object-cover" />
-                <div className="p-3">
-                  <h3 className="text-lg font-bold text-gray-800">{topic.title}</h3>
-                  <p className="text-gray-600">{topic.description}</p>
-                  <button
-                    onClick={() => navigate(`/topic/${topic.id}`)}
-                    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300"
-                  >
-                    Learn More
-                  </button>
+          {/* Topics Section */}
+          {loading ? (
+            <p className="text-center text-gray-400">Loading topics...</p>
+          ) : error ? (
+            <p className="text-center text-red-500">{error}</p>
+          ) : topics.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-14">
+              {topics.map(topic => (
+                <div key={topic.id} className="relative bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                  <img src={topic.image || img1} alt={topic.title} className="w-full h-48 object-cover" />
+                  <div className="p-3">
+                    <h3 className="text-lg font-bold text-gray-800">{topic.title}</h3>
+                    <p className="text-gray-600">{topic.description}</p>
+                    <button
+                      onClick={() => navigate(`/topic/${topic._id}`)}
+                      className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300"
+                    >
+                      Learn More
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-gray-400">No topics available.</p>
+          )}
         </div>
       </div>
     </>

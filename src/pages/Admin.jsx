@@ -5,10 +5,12 @@ import logout from "../assets/exit.png";
 import left from "../assets/left-arrow.png";
 import right from "../assets/right-arrow.png";
 import profilePic from "../assets/hacker.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Admin = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isAddHovered, setIsAddHovered] = useState(false);
+  const navigate = useNavigate();
 
   const handleToggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -30,8 +32,8 @@ const Admin = () => {
     <div className="relative w-full h-full">
       <button
         id={isSidebarOpen ? "left" : "right"}
-        className={`absolute top-12 w-10 transition-transform ease-in-out duration-300 transform ${
-          isSidebarOpen ? "translate-x-[410px]" : "translate-x-4"
+        className={`absolute top-12 w-8 transition-transform ease-in-out duration-300 transform z-50 ${
+          isSidebarOpen ? "translate-x-[310px]" : "translate-x-0"
         }`}
         onClick={handleToggleSidebar}
       >
@@ -42,13 +44,13 @@ const Admin = () => {
       </button>
       <section
         id="sidebar"
-        className={`bg-black  bg-opacity-20 backdrop-blur-sm w-1/5 h-[935px] absolute top-4 left-4 transition-transform ease-in-out duration-300 rounded-3xl shadow-2xl transform ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-[104%]"
+        className={`bg-black bg-opacity-10 backdrop-blur-sm w-1/5 h-screen absolute transition-transform ease-in-out duration-300 shadow-2xl transform ${
+          isSidebarOpen ? "translate-x-[0px]" : "translate-x-[-104%]"
         }`}
       >
         <div
           id="profile"
-          className="w-16 h-16 rounded-full bg-stone-500 relative left-4 top-4 shadow-lg overflow-hidden"
+          className="w-12 h-12 rounded-full bg-stone-500 relative left-6 top-6 shadow-lg overflow-hidden"
         >
           <img
             src={profilePic}
@@ -56,24 +58,24 @@ const Admin = () => {
             className="w-full h-full object-cover"
           />
         </div>
-        <h1 className="text-4xl absolute top-7 left-24 text-black bg-gradient-to-r from-rose-500 via-orange-500 to-orange-500 bg-clip-text text-transparent">
+        <h1 className="text-3xl absolute top-8 left-20 text-black bg-gradient-to-r from-rose-500 via-orange-500 to-orange-500 bg-clip-text text-transparent">
           Utshab Thapa
         </h1>
-        <hr className="bg-white h-1 mt-8" />
+        <hr className="bg-white h-1 mt-12" />
         <div
           className="relative"
           onMouseEnter={handleAddHover}
           onMouseLeave={handleAddLeave}
         >
           <a href="#">
-            <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-20 flex items-center absolute top-0">
-              <img src={add} alt="" className="w-8 h-8 ml-5" />
-              <h2 className="ml-3 text-xl text-black">Add</h2>
+            <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-14 flex items-center absolute top-0">
+              <img src={add} alt="" className="w-6 ml-8" />
+              <h2 className="ml-3 text-lg text-black">Add</h2>
             </div>
           </a>
           {isAddHovered && (
             <div
-              className="absolute top-20 w-2/3 right-0 bg-black bg-opacity-20 p-2"
+              className="absolute top-14 w-2/3 right-0 bg-black bg-opacity-20"
               onMouseEnter={handleSubMenuHover}
               onMouseLeave={handleAddLeave}
             >
@@ -90,27 +92,110 @@ const Admin = () => {
             </div>
           )}
         </div>
+        <div
+          className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-14 flex items-center absolute bottom-14 cursor-pointer"
+          onClick={() => navigate("/adminprofile")}
+        >
+          <img src={setting} alt="Settings" className="w-6 ml-8" />
+          <h2 className="text-lg ml-3 text-black">Settings</h2>
+        </div>
         <a href="#">
-          <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-20 flex items-center absolute bottom-20">
-            <img src={setting} alt="" className="w-8 ml-5" />
-            <h2 className="text-xl ml-3 text-black">Settings</h2>
-          </div>
-        </a>
-        <a href="#">
-          <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-20 flex items-center rounded-b-3xl absolute bottom-0">
-            <img src={logout} alt="" className="ml-5 w-8" />
-            <h2 className="text-xl ml-3 text-black">Log Out</h2>
+          <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-14 flex items-center absolute bottom-0">
+            <img src={logout} alt="Log Out" className="ml-8 w-6" />
+            <h2 className="text-lg ml-3 text-black">Log Out</h2>
           </div>
         </a>
       </section>
       <section
         id="main"
-        className={`bg-black bg-opacity-20 backdrop-blur-sm w-9/12 h-[935px] absolute top-4 left-[460px] transition-transform ease-in-out duration-300 rounded-3xl shadow-2xl transform ${
+        className={`bg-black bg-opacity-10 backdrop-blur-sm h-screen absolute left-[250px] duration-[300ms] shadow-2xl  ${
           isSidebarOpen
-            ? "scale-x-98 translate-x-0"
-            : "scale-x-[125%] translate-x-[-15%]"
+            ? "w-[77%] translate-x-[100px]"
+            : "w-[98%] translate-x-[-220px]"
         }`}
-      ></section>
+      >
+        <div className="flex justify-evenly mt-6">
+          <div
+            className={` w-[450px] h-[200px] bg-sky-500 rounded-2xl duration-[300ms] flex flex-col items-center   ${
+              isSidebarOpen ? "w-[29%] " : "w-[95%]"
+            }`}
+          >
+            <h1 className="w-full h-full text-7xl relative top-5 left-5 uppercase font-bold text-white mt-5">
+              200,000
+            </h1>
+            <h1 className=" w-full h-full text-3xl relative left-5  uppercase font-bold text-white mt-8">
+              Users
+            </h1>
+          </div>
+          <div
+            className={` w-[450px] h-[200px] bg-lime-500 rounded-2xl duration-[300ms] flex flex-col items-center  ${
+              isSidebarOpen ? "w-[29%] " : "w-[95%]"
+            }`}
+          >
+            <h1 className="w-full h-full text-7xl relative top-5 left-5 uppercase font-bold text-white mt-5">
+              186,000
+            </h1>
+            <h1 className=" w-full h-full text-3xl relative left-5  uppercase font-bold text-white mt-8">
+              Flags Captured
+            </h1>
+          </div>
+          <div
+            className={` w-[450px] h-[200px] bg-rose-600 rounded-2xl  duration-[300ms] flex flex-col items-center  ${
+              isSidebarOpen ? "w-[29%] " : "w-[95%]"
+            }`}
+          >
+            <h1 className="w-full h-full text-7xl relative top-5 left-5 uppercase font-bold text-white mt-5">
+              186
+            </h1>
+            <h1 className=" w-full h-full text-3xl relative left-5  uppercase font-bold text-white  mt-8">
+              Games
+            </h1>
+          </div>
+        </div>
+        <div className="flex justify-evenly mt-6">
+          <div
+            className={` w-[870px] h-[440px] bg-gray-100 rounded-2xl duration-[300ms] ${
+              isSidebarOpen ? "w-[60%] " : "w-[62%]"
+            }`}
+          >
+            <h1 className=" text-4xl text-gray-600 font-black relative left-5 top-5">
+              Popular Topics
+            </h1>
+            <div className="relative top-10 left-5 text-xl">
+              <p className="mb-3">Some topic</p>
+              <p className="mb-3">Some topic</p>
+              <p className="mb-3">Some topic</p>
+              <p className="mb-3">Some topic</p>
+              <p className="mb-3">Some topic</p>
+              <p className="mb-3">Some topic</p>
+              <p className="mb-3">Some topic</p>
+              <p className="mb-3">Some topic</p>
+              <p className="mb-3">Some topic</p>
+            </div>
+          </div>
+
+          <div
+            className={` w-[420px] h-[440px] bg-gray-100 rounded-2xl duration-[300ms] ${
+              isSidebarOpen ? "w-[29%] " : "w-[29%]"
+            }`}
+          >
+            <h1 className=" text-4xl text-gray-600 font-black relative left-5 top-5">
+              Leaderboard
+            </h1>
+            <div className="relative top-10 left-5 text-xl">
+              <p className="mb-3">Player</p>
+              <p className="mb-3">Player</p>
+              <p className="mb-3">Player</p>
+              <p className="mb-3">Player</p>
+              <p className="mb-3">Player</p>
+              <p className="mb-3">Player</p>
+              <p className="mb-3">Player</p>
+              <p className="mb-3">Player</p>
+              <p className="mb-3">Player</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

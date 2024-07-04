@@ -1,7 +1,8 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import img1 from "../assets/img1.jpeg";
-import NavBar from "./navbar";
+import NavBar from "./NavBar";
+// import NavBar from "./navbar";
 
 const topics = [
   {
@@ -21,7 +22,8 @@ const topics = [
 ];
 
 const Intro = () => {
-  const { id } = useParams();
+  const {id} = useParams();
+  console.log('id from params', id)
   const navigate = useNavigate();
   const topic = topics.find((t) => t.id === parseInt(id));
 
@@ -31,11 +33,11 @@ const Intro = () => {
         Topic not found
       </div>
     );
-  }
+  } 
 
   return (
     <>
-      <NavBar />
+      <NavBar/>
       <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-500 to-gray-900 text-black">
         <div className="max-w-2xl w-full p-2 bg-white rounded-lg shadow-lg">
           <img

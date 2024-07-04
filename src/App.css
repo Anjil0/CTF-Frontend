@@ -1,16 +1,16 @@
-.topics-bg-img{
-  background-image: url(../src/assets/Wave.jpg);
+/* src/App.css */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.backdrop-filter {
+  backdrop-filter: blur(10px);
 }
 
-.sidebar {
-  background-color: #2C384A; /* Darker sidebar color */
-  color: #FFFFFF; /* White text color */
-}
-.topic-container {
-  background-color: #242c40; /* Dark gray background color */
+.backdrop-blur-lg {
+  --tw-backdrop-blur: blur(30px);
 }
 
-.topic-content {
-  background-color: #ffffff; /* White background for content */
-  color: #000000; /* Black text color */
+.bg-opacity-60 {
+  --tw-bg-opacity: 0.6;
 }
