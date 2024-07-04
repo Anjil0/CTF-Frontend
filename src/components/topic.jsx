@@ -1,8 +1,121 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import img1 from '../assets/img1.jpeg';
-//import NavBar from 'NavBar';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import img1 from "../assets/img1.jpeg";
+import NavBar from "../components/NavBar";
+
+const topics = [
+  {
+    id: 1,
+    title: "Introduction to Cyber Security",
+    image: img1,
+    description:
+      "Introduction: Enumeration is the ordered listing of all items in a collection, often used in math and computer science.",
+  },
+  {
+    id: 2,
+    title: "Ethical Hacking – Using ViewDNS ",
+    image: img1,
+    description: "Introduction to Malware Analysis.",
+  },
+  {
+    id: 3,
+    title: "Scanning Network Using Censys.io ",
+    image: img1,
+    description: "Introduction to Network Security.",
+  },
+  {
+    id: 4,
+    title: "Ethical Hacking - Using WhatWeb",
+    image: img1,
+    description: "Introduction to Web Security.",
+  },
+  {
+    id: 5,
+    title: "Digital Forensic Steganography",
+    image: img1,
+    description: "Introduction to Incident Response.",
+  },
+  {
+    id: 6,
+    title: "Footprinting Using Have I Been Pwned ",
+    image: img1,
+    description: "Introduction to Threat Intelligence.",
+  },
+  {
+    id: 1,
+    title: "Scanning Network",
+    image: img1,
+    description:
+      "Introduction: Enumeration is the ordered listing of all items in a collection, often used in math and computer science.",
+  },
+  {
+    id: 2,
+    title: "Ethical Hacking – Using ViewDNS ",
+    image: img1,
+    description: "Introduction to Malware Analysis.",
+  },
+  {
+    id: 3,
+    title: "Scanning Network Using Censys.io ",
+    image: img1,
+    description: "Introduction to Network Security.",
+  },
+  {
+    id: 4,
+    title: "Ethical Hacking - Using WhatWeb",
+    image: img1,
+    description: "Introduction to Web Security.",
+  },
+  {
+    id: 5,
+    title: "Digital Forensic Steganography",
+    image: img1,
+    description: "Introduction to Incident Response.",
+  },
+  {
+    id: 6,
+    title: "Footprinting Using Have I Been Pwned ",
+    image: img1,
+    description: "Introduction to Threat Intelligence.",
+  },
+  {
+    id: 1,
+    title: "Scanning Network",
+    image: img1,
+    description:
+      "Introduction: Enumeration is the ordered listing of all items in a collection, often used in math and computer science.",
+  },
+  {
+    id: 2,
+    title: "Ethical Hacking – Using ViewDNS ",
+    image: img1,
+    description: "Introduction to Malware Analysis.",
+  },
+  {
+    id: 3,
+    title: "Scanning Network Using Censys.io ",
+    image: img1,
+    description: "Introduction to Network Security.",
+  },
+  {
+    id: 4,
+    title: "Ethical Hacking - Using WhatWeb",
+    image: img1,
+    description: "Introduction to Web Security.",
+  },
+  {
+    id: 5,
+    title: "Digital Forensic Steganography",
+    image: img1,
+    description: "Introduction to Incident Response.",
+  },
+  {
+    id: 6,
+    title: "Footprinting Using Have I Been Pwned ",
+    image: img1,
+    description: "Introduction to Threat Intelligence.",
+  },
+];
 
 const Topic = () => {
   const navigate = useNavigate();

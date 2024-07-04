@@ -1,28 +1,66 @@
-import React, { useState } from 'react';
-import { FiChevronDown, FiPlus } from 'react-icons/fi';
-import Swal from 'sweetalert2';
+import React, { useState } from "react";
+import { FiPlus } from "react-icons/fi";
+import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import { createTopic, fetchTopic } from "../redux/topicSlice";
 
 const Addt = () => {
-  const [topicTitle, setTopicTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [topicType, setTopicType] = useState('');
-  const [hoveredType, setHoveredType] = useState('');
+  const dispatch = useDispatch();
+  const [topic, setTopic] = useState("");
+  const [description, setDescription] = useState("");
+  const [difficulty, setDifficulty] = useState("");
+
+  const handleAddTopic = async (topic, description, difficulty) => {
+    try {
+      console.log("topics to be sent", topic, description, difficulty);
+      const resultAction = await dispatch(
+        createTopic({ topic, description, difficulty })
+      );
+      if (createTopic.fulfilled.match(resultAction)) {
+        const { StatusCode, Result } = resultAction.payload;
+        if (StatusCode === 200) {
+          Swal.fire({
+            icon: "success",
+            title: "Success!",
+            text: Result.message,
+            timer: 1500,
+            showConfirmButton: false,
+          });
+          dispatch(fetchTopic());
+        } else {
+          Swal.fire({
+            icon: "warning",
+            title: "Warning!",
+            text: `Received unexpected status code: ${StatusCode}`,
+          });
+        }
+      } else if (createTopic.rejected.match(resultAction)) {
+        const errorMessage = resultAction.error.message;
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: errorMessage,
+        });
+      }
+    } catch (error) {
+      console.error("Failed to create topic:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "An error occurred while creating the topic. Please try again later.",
+      });
+    }
+  };
 
   const handleClick = () => {
-    if (!topicTitle || !description || !topicType) {
+    if (!topic || !description || !difficulty) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Please fill out all fields!',
+        icon: "error",
+        title: "Oops...",
+        text: "Please fill out all fields!",
       });
     } else {
-      Swal.fire({
-        position: "middle-center",
-        icon: "success",
-        title: "Your work has been added",
-        showConfirmButton: false,
-        timer: 1500
-      });
+      handleAddTopic(topic, description, difficulty);
     }
   };
 
@@ -31,19 +69,29 @@ const Addt = () => {
       <div className="bg-white p-8 rounded-lg shadow-lg h-auto w-full max-w-lg">
         <form className="space-y-6">
           <div>
-            <label htmlFor="topic-title" className="text-[24px] font-semibold block text-gray-700">Title</label>
+            <label
+              htmlFor="topic"
+              className="text-[24px] font-semibold block text-gray-700"
+            >
+              Title
+            </label>
             <input
-              id="topic-title"
-              name="topic-title"
+              id="topic"
+              name="topic"
               type="text"
-              value={topicTitle}
-              onChange={(e) => setTopicTitle(e.target.value)}
+              value={topic}
+              onChange={(e) => setTopic(e.target.value)}
               className="text-[20px] h-[50px] mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-md focus:outline-none focus:ring-yellow-600 focus:border-yellow-600"
               placeholder="Enter topic title..."
             />
           </div>
           <div>
-            <label htmlFor="description" className="text-[24px] block font-semibold text-gray-700">Description</label>
+            <label
+              htmlFor="description"
+              className="text-[24px] block font-semibold text-gray-700"
+            >
+              Description
+            </label>
             <textarea
               id="description"
               name="description"
@@ -54,69 +102,36 @@ const Addt = () => {
               placeholder="Enter description..."
             ></textarea>
           </div>
-          <div className="relative group">
-            <label htmlFor="question-type" className="text-[24px] block font-semibold text-gray-700">Topic Type</label>
-            <div className="flex items-center mt-1 w-full border border-gray-300 rounded-md shadow-md focus-within:ring-yellow-600 focus-within:border-yellow-600">
-              <input
-                id="question-type"
-                name="question-type"
-                type="text"
-                value={topicType}
-                readOnly
-                className="text-[20px] block w-full px-4 py-2 focus:outline-none"
-                placeholder={hoveredType || "Select topic type..."}
-              />
-              <FiChevronDown className="mx-2 text-gray-400" />
-            </div>
-            <div className="absolute mt-1 w-full hidden group-hover:block">
-              <div className="bg-white border border-gray-300 rounded-md shadow-lg">
-                <button
-                  type="button"
-                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                  onMouseEnter={() => setHoveredType('Technology')}
-                  onMouseLeave={() => setHoveredType('')}
-                  onClick={() => setTopicType('Technology')}
-                >
-                  Technology
-                </button>
-                <button
-                  type="button"
-                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                  onMouseEnter={() => setHoveredType('Science')}
-                  onMouseLeave={() => setHoveredType('')}
-                  onClick={() => setTopicType('Science')}
-                >
-                  Science
-                </button>
-                <button
-                  type="button"
-                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                  onMouseEnter={() => setHoveredType('Art')}
-                  onMouseLeave={() => setHoveredType('')}
-                  onClick={() => setTopicType('Art')}
-                >
-                  Art
-                </button>
-                <button
-                  type="button"
-                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                  onMouseEnter={() => setHoveredType('Business')}
-                  onMouseLeave={() => setHoveredType('')}
-                  onClick={() => setTopicType('Business')}
-                >
-                  Business
-                </button>
-                <button
-                  type="button"
-                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                  onMouseEnter={() => setHoveredType('Health')}
-                  onMouseLeave={() => setHoveredType('')}
-                  onClick={() => setTopicType('Health')}
-                >
-                  Health
-                </button>
-              </div>
-            </div>
+          <div>
+            <label
+              htmlFor="difficulty"
+              className="text-[24px] block font-semibold text-gray-700"
+            >
+              Difficulty
+            </label>
+            <select
+              id="difficulty"
+              name="difficulty"
+              value={difficulty}
+              onChange={(e) => setDifficulty(e.target.value)}
+              className="text-[20px] mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-md focus:outline-none focus:ring-yellow-600 focus:border-yellow-600"
+            >
+              <option value="" disabled>
+                Select difficulty...
+              </option>
+              <option value="Easy" name="Easy">
+                Easy
+              </option>
+              <option value="Medium" name="Medium">
+                Medium
+              </option>
+              <option value="Hard" name="Hard">
+                Hard
+              </option>
+              <option value="Advanced" name="Advanced">
+                Advanced
+              </option>
+            </select>
           </div>
 
           <div className="flex justify-center items-center mt-4">
@@ -126,15 +141,13 @@ const Addt = () => {
               className="text-[20px] w-[220px] h-[55px] flex items-center px-4 py-2 bg-yellow-600 text-white rounded-md shadow-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 font-bold"
             >
               <FiPlus className="mr-2" />
-              Add Topic
+              Submit
             </button>
           </div>
         </form>
       </div>
     </div>
   );
-}
+};
 
 export default Addt;
-
-

@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { userLogin, registerUser } from "./authAction";
 import swal from "sweetalert2";
 
-// initialize userToken from local storage
 const userToken = localStorage.getItem("userToken")
   ? localStorage.getItem("userToken")
   : null;

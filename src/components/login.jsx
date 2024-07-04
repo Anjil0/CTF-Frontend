@@ -2,7 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { userLogin } from "../redux/authAction";
+// import { userLogin } from "../redux/authAction";
+import { doLogin } from "../redux/loginLogoutSlice";
 import logo from "../assets/hackerimage.jpg";
 import { Link } from "react-router-dom";
 import swal from "sweetalert2";
@@ -28,7 +29,7 @@ const LoginUser = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await dispatch(userLogin(formData)).unwrap();
+      await dispatch(doLogin(formData)).unwrap();
       swal.fire({
         icon: "success",
         title: "Login Successful",

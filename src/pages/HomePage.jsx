@@ -1,10 +1,28 @@
 import React, { useEffect } from "react";
-import NavBar from "../components/NavBar.jsx";
+
+import NavBar from "../components/NavBar";
+
+
 import background from "../assets/background.jpg";
-// import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+
+  const navigate = useNavigate();
+
+  const roleOfCurrentUser = localStorage.getItem("role");
+  console.log("role of current user", roleOfCurrentUser);
+
+  useEffect(() => {
+    if (roleOfCurrentUser === "admin") {
+      navigate("/admin");
+    } else {
+      navigate("/");
+    }
+  }, []);
+
   return (
     <>
       <div className="w-full">
