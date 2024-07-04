@@ -3,7 +3,6 @@ import axios from 'axios'; // Import axios for API calls
 import img from '../assets/img.png'; // Ensure this path is correct based on your project structure
 import greenFlagImage from '../assets/greenflag.png'; // Path to your green flag image
 import redFlagImage from '../assets/redflag.png'; // Path to your red flag image
-import Header from './navbar';
 import Popup from './popup'; // Correct import path and casing
 
 function CtfDetail() {
@@ -71,17 +70,9 @@ function CtfDetail() {
 
   const closePopup = () => setShowPopup(false);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
-
   return (
     <>
-      <Header />
+      {/* <Header/> */}
       <div className="relative h-50">
         {/* Background Image and Overlay */}
         <div
@@ -96,7 +87,7 @@ function CtfDetail() {
         {/* Content Container */}
         <div className="relative z-10 flex flex-col justify-center items-center h-full text-white">
           <h1 className="text-4xl font-bold mb-4 mt-10">
-            Network Scanning (Shodan)
+        Network Scanning (Shodan)
           </h1>
           <p className="text-lg mb-8">
             Explore the details of this Capture The Flag event.
@@ -112,79 +103,105 @@ function CtfDetail() {
 
       <div className="p-6 bg-white shadow-lg">
         <div className="flex">
-          <div className="w-1/2 p-4">
-            <h1 className="text-xl mb-4">Flag 1: {questions[0]?.question}</h1>
-            <form onSubmit={(e) => handleSubmit(e, 'answer1', 0, 'correct1', 'showFlag1', 'showRedFlag1')} className="flex items-center space-x-2 mb-4">
-              <input
-                type="text"
-                value={answers.answer1}
-                onChange={(e) => handleAnswerChange(e, 'answer1')}
-                placeholder="Answer format: **,***"
-                className="p-2 border border-gray-300 rounded-lg flex-grow focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <button
-                type="submit"
-                className="p-2 rounded-lg bg-green-500 text-white hover:bg-green-600 transition duration-300"
-              >
-                Submit
-              </button>
-            </form>
-            {isAnswerCorrect.correct1 !== null && (
-              <div className={`p-2 rounded-lg ${isAnswerCorrect.correct1 ? 'bg-green-500' : 'bg-red-500'} text-white mt-2 transition duration-300`}>
-                {isAnswerCorrect.correct1 ? 'Correct! You answered Flag 1 correctly.' : 'Incorrect. Try again for Flag 1.'}
-              </div>
-            )}
+          {loading ? (
+            <div>Loading...</div>
+          ) : error ? (
+            <div>{error}</div>
+          ) : (
+            <>
+              <div className="w-1/2 p-4">
+                <h1 className="text-xl mb-4">Flag 1: {questions[0]?.question}</h1>
+                <form onSubmit={(e) => handleSubmit(e, 'answer1', 0, 'correct1', 'showFlag1', 'showRedFlag1')} className="flex items-center space-x-2 mb-4">
+                  <input
+                    type="text"
+                    value={answers.answer1}
+                    onChange={(e) => handleAnswerChange(e, 'answer1')}
+                    placeholder="Answer format: **,***"
+                    className="p-2 border border-gray-300 rounded-lg flex-grow focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  <button
+                    type="submit"
+                    className="p-2 rounded-lg bg-green-500 text-white hover:bg-green-600 transition duration-300"
+                  >
+                    Submit
+                  </button>
+                </form>
+                {isAnswerCorrect.correct1 !== null && (
+                  <div className={`p-2 rounded-lg ${isAnswerCorrect.correct1 ? 'bg-green-500' : 'bg-red-500'} text-white mt-2 transition duration-300`}>
+                    {isAnswerCorrect.correct1 ? 'Correct! You answered Flag 1 correctly.' : 'Incorrect. Try again for Flag 1.'}
+                  </div>
+                )}
 
-            {showRedFlags.showRedFlag1 && (
-              <div className="fixed inset-0 flex items-center justify-center z-50">
-                <div className="relative z-10 p-8 rounded-lg animate-fade-in flex justify-center items-center">
-                  <img src={redFlagImage} alt="Flag 1 Incorrect" className="max-w-[200px] max-h-[250px]" />
-                </div>
-                <div className="fixed inset-0 bg-slate-200 bg-opacity-50 backdrop-blur-sm"></div>
-              </div>
-            )}
+                {showFlags.showFlag1 && (
+                  <div className="fixed inset-0 flex items-center justify-center z-50">
+                    <div className="relative z-10 p-8 rounded-lg animate-fade-in flex justify-center items-center">
+                      <img src={greenFlagImage} alt="Flag 1 Correct" className="max-w-[200px] max-h-[250px]" />
+                    </div>
+                    <div className="fixed inset-0 bg-slate-200 bg-opacity-50 backdrop-blur-sm"></div>
+                  </div>
+                )}
 
-            <h1 className="text-xl text-black-500 mb-4 mt-8">Flag 2: {questions[1]?.question}</h1>
-            <form onSubmit={(e) => handleSubmit(e, 'answer2', 1, 'correct2', 'showFlag2', 'showRedFlag2')} className="flex items-center space-x-2">
-              <input
-                type="text"
-                value={answers.answer2}
-                onChange={(e) => handleAnswerChange(e, 'answer2')}
-                placeholder="Answer format: ****** ***"
-                className="p-2 border border-gray-300 rounded-lg flex-grow focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <button
-                type="submit"
-                className="p-2 rounded-lg bg-green-500 text-white hover:bg-green-600 transition duration-300"
-              >
-                Submit
-              </button>
-            </form>
-            {isAnswerCorrect.correct2 !== null && (
-              <div className={`p-2 rounded-lg ${isAnswerCorrect.correct2 ? 'bg-green-500' : 'bg-red-500'} text-white mt-2 transition duration-300`}>
-                {isAnswerCorrect.correct2 ? 'Correct! You answered Flag 2 correctly.' : 'Incorrect. Try again for Flag 2.'}
-              </div>
-            )}
+                {showRedFlags.showRedFlag1 && (
+                  <div className="fixed inset-0 flex items-center justify-center z-50">
+                    <div className="relative z-10 p-8 rounded-lg animate-fade-in flex justify-center items-center">
+                      <img src={redFlagImage} alt="Flag 1 Incorrect" className="max-w-[200px] max-h-[250px]" />
+                    </div>
+                    <div className="fixed inset-0 bg-slate-200 bg-opacity-50 backdrop-blur-sm"></div>
+                  </div>
+                )}
 
-            {showRedFlags.showRedFlag2 && (
-              <div className="fixed inset-0 flex items-center justify-center z-50">
-                <div className="relative z-10 p-8 rounded-lg animate-fade-in flex justify-center items-center">
-                  <img src={redFlagImage} alt="Flag 2 Incorrect" className="max-w-[200px] max-h-[250px]" />
-                </div>
-                <div className="fixed inset-0 bg-slate-200 bg-opacity-50 backdrop-blur-sm"></div>
+                <h1 className="text-xl text-black-500 mb-4 mt-8">Flag 2: {questions[1]?.question}</h1>
+                <form onSubmit={(e) => handleSubmit(e, 'answer2', 1, 'correct2', 'showFlag2', 'showRedFlag2')} className="flex items-center space-x-2">
+                  <input
+                    type="text"
+                    value={answers.answer2}
+                    onChange={(e) => handleAnswerChange(e, 'answer2')}
+                    placeholder="Answer format: ****** ***"
+                    className="p-2 border border-gray-300 rounded-lg flex-grow focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  <button
+                    type="submit"
+                    className="p-2 rounded-lg bg-green-500 text-white hover:bg-green-600 transition duration-300"
+                  >
+                    Submit
+                  </button>
+                </form>
+                {isAnswerCorrect.correct2 !== null && (
+                  <div className={`p-2 rounded-lg ${isAnswerCorrect.correct2 ? 'bg-green-500' : 'bg-red-500'} text-white mt-2 transition duration-300`}>
+                    {isAnswerCorrect.correct2 ? 'Correct! You answered Flag 2 correctly.' : 'Incorrect. Try again for Flag 2.'}
+                  </div>
+                )}
+
+                {showFlags.showFlag2 && (
+                  <div className="fixed inset-0 flex items-center justify-center z-50">
+                    <div className="relative z-10 p-8 rounded-lg animate-fade-in flex justify-center items-center">
+                      <img src={greenFlagImage} alt="Flag 2 Correct" className="max-w-[200px] max-h-[250px]" />
+                    </div>
+                    <div className="fixed inset-0 bg-slate-200 bg-opacity-50 backdrop-blur-sm"></div>
+                  </div>
+                )}
+
+                {showRedFlags.showRedFlag2 && (
+                  <div className="fixed inset-0 flex items-center justify-center z-50">
+                    <div className="relative z-10 p-8 rounded-lg animate-fade-in flex justify-center items-center">
+                      <img src={redFlagImage} alt="Flag 2 Incorrect" className="max-w-[200px] max-h-[250px]" />
+                    </div>
+                    <div className="fixed inset-0 bg-slate-200 bg-opacity-50 backdrop-blur-sm"></div>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-          <div className="mx-[80px] p-4 px-[20px] bg-black bg-opacity-20 border rounded-xl">
-            <h1 className="text-xl font-bold mb-4 text-center">Process to perform:</h1>
-            <ul className="list-disc list-inside mx-10">
-              <li>To begin, we have to take IP of anything.</li>
-              <li>For this, you need to go through the website;</li>
-              <li><a href="https://www.shodan.io/host/8.8.8x" target="_blank" className="text-blue-500 hover:underline">Shodan.io</a></li>
-              <li>This is the IP address of Google DNS Server</li>
-              <li>Through this, you can search for more IPs</li>
-            </ul>
-          </div>
+              <div className="mx-[80px] p-4 px-[20px] bg-black bg-opacity-20 border rounded-xl">
+                <h1 className="text-xl font-bold mb-4 text-center">Process to perform:</h1>
+                <ul className="list-disc list-inside mx-10">
+                  <li>To begin, we have to take IP of anything.</li>
+                  <li>For this, you need to go through the website;</li>
+                  <li><a href="https://www.shodan.io/host/8.8.8x" target="_blank" className="text-blue-500 hover:underline">Shodan.io</a></li>
+                  <li>This is the IP address of Google DNS Server</li>
+                  <li>Through this, you can search for more IPs</li>
+                </ul>
+              </div>
+            </>
+          )}
         </div>
       </div>
 

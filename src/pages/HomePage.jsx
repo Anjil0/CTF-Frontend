@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import NavBar from "../components/navbar";
+import NavBar from "../components/NavBar";
 import background from "../assets/background.jpg";
 // import Footer from "../components/Footer";
 import Swal from "sweetalert2";
