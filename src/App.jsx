@@ -9,7 +9,7 @@ import Scenario from "./components/scenario";
 import Admin from "./pages/Admin.jsx";
 import "./App.css";
 import CtfDetail from "./components/newctfdetail.jsx";
-import './index.css';
+import Addt from "./components/Addt.jsx";
 import Leaderboard from "./components/leaderboard.jsx";
 import Footer from "./components/Footer.jsx";
 import UserProfile from "./components/UserProfile.jsx";
@@ -21,7 +21,7 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<Home />} /> */}
           <Route path="/admin" element={<Admin />} />
-
+          <Route path="/addTopic" element={<Addt />} />
           <Route path="/register" element={<UserRegister />} />
           <Route path="/login" element={<UserLogin />} />
           <Route path="/ctfdetailpage" element={<CtfDetail />} />
@@ -43,4 +43,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;
