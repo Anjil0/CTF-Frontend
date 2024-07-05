@@ -12,6 +12,7 @@ import CtfDetail from "./components/newctfdetail.jsx";
 import Addt from "./components/Addt.jsx";
 import Leaderboard from "./components/leaderboard.jsx";
 import Footer from "./components/Footer.jsx";
+import Addq from "./components/Addq.jsx";
 
 function App() {
   return (
@@ -25,12 +26,11 @@ function App() {
           <Route path="/login" element={<UserLogin />} />
           <Route path="/ctfdetailpage" element={<CtfDetail />} />
           <Route path="/scenario" element={<Scenario />} />
-
+          <Route path="/addQ" element={<Addq />} />
           <Route path="/topic/:id" element={<Intro />} />
           <Route path="/topic" element={<Topic />} />
           <Route path="/scenario/:id" element={<Scenario />} />
           <Route path="/ctfdetail" element={<CtfDetail />} />
-
           <Route path="/newctfdetail" element={<CtfDetail />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/footer" element={<Footer />} />
