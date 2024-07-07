@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import img1 from "../assets/img1.jpeg";
-import Header from "./navbar";
+import Navbar from "./navbar";
 
 const topics = [
   {
@@ -122,7 +122,7 @@ const Topic = () => {
 
   return (
     <>
-      <Header />
+      <Navbar />
       <div className="flex w-full min-h-screen bg-gray-500 ">
         {/* Sidebar Navigation */}
         <nav className="w-1/6 bg-gray-800 text-white font-size-15 p-4 min-h-screen bg-gray-500">

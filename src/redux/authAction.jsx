@@ -13,7 +13,7 @@ export const userLogin = createAsyncThunk(
       console.log("password", password);
       const config = {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json",   
         },
       };
       //   const navigate = useNavigate();

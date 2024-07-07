@@ -3,7 +3,7 @@ import img from "../assets/img.png";
 import greenFlagImage from "../assets/greenflag.png";
 import redFlagImage from "../assets/redflag.png";
 import Confetti from "react-confetti";
-import Header from "./navbar";
+import Navbar from "./navbar";
 
 function CtfDetail() {
   const [answer1, setAnswer1] = useState("");
@@ -75,7 +75,7 @@ function CtfDetail() {
 
   return (
     <>
-      <Header />
+      <Navbar />
       <div className="relative h-50">
         {/* Background Image and Overlay */}
         <div

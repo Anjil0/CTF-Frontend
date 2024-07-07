@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Header from "./navbar";
+import Navbar from "./navbar";
 
 const scenarios = [
   {
@@ -50,7 +50,7 @@ const Scenario = () => {
 
   return (
     <>
-      <Header />
+      <Navbar />
       <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-500 to-gray-900 text-black">
         <div className="max-w-2xl w-full p-5 bg-white rounded-lg shadow-lg">
           <div className="p-6">
