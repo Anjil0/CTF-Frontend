@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 import {
 
   FaFacebookSquare,
 
   FaInstagram,
   FaTwitterSquare,
-} from "react-icons/fa";
+} from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -17,7 +17,6 @@ const Footer = () => {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br />
             Nulla nec purus feugiat, molestie ipsum et, consequat nibh.
           </p>
-
           <div className="flex space-x-4">
             <a
               href="#"
@@ -131,21 +130,21 @@ const Footer = () => {
             className="text-black hover:text-gray-400"
             aria-label="Facebook"
           >
-            <i className="fab fa-facebook-f"></i>
+            <FaFacebookSquare size={24} />
           </a>
           <a
             href="#"
             className="text-black hover:text-gray-400"
             aria-label="Instagram"
           >
-            <i className="fab fa-instagram"></i>
+            <FaInstagram size={24} />
           </a>
           <a
             href="#"
             className="text-black hover:text-gray-400"
             aria-label="LinkedIn"
           >
-            <i className="fab fa-linkedin-in"></i>
+            <Fa LinkedinIn size={24} />
           </a>
         </div>
       </div>

@@ -1,99 +1,34 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
-// import NavBar from "../components/navbar";
+import NavBar from "../components/NavBar";
 import background from "../assets/background.jpg";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const roleOfCurrentUser = localStorage.getItem("role");
+  console.log("role of current user", roleOfCurrentUser);
+
   useEffect(() => {
-    const accessToken = localStorage.getItem("userToken");
-    if (!accessToken) {
-      Swal.fire({
-        icon: "error",
-        title: "Not Logged In!",
-        text: "You need to log in before using any functionality.",
-        showCancelButton: true,
-        confirmButtonText: "Log In",
-        cancelButtonText: "Cancel",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = "/login";
-        } else {
-          // Handle cancel action
-        }
-      });
+    if (roleOfCurrentUser === "admin") {
+      navigate("/admin");
+    } else {
+      navigate("/");
     }
   }, []);
 
   return (
     <>
       <div className="w-full">
-        {/* <NavBar></NavBar> */}
-        <header className="w-full flex justify-between items-center h-20 bg-gray-200 bg-opacity-50 text-black shadow-xl fixed backdrop-blur-3 z-10">
-          <ul className="flex items-center">
-            <li className="ml-8 text-4xl">ING</li>
-          </ul>
-          <ul className="flex">
-            <a
-              href=""
-              className="mr-20 text-xl hover:bg-yellow-500 hover:text-black hover:shadow-2xl transition-all px-4 py-2 rounded-full"
-            >
-              <li><Link to={"#"}>Home</Link></li>
-            </a>
-            <a
-              href=""
-              className="mr-20 text-xl hover:bg-lime-500 hover:text-black hover:shadow-2xl transition-all px-4 py-2 rounded-full"
-            >
-              <li><Link to={"/topic"}>CTF</Link></li>
-            </a>
-            <a
-              href=""
-              className="mr-20 text-xl hover:bg-sky-600 hover:text-black hover:shadow-2xl transition-all px-4 py-2 rounded-full"
-            >
-              <li>About Us</li>
-            </a>
-          </ul>
-          <ul className="flex items-center">
-            <li className="ml-4">
-              <input
-                type="text"
-                placeholder="Search..."
-                className="mr-4 px-4 py-2 rounded-full outline-none"
-              />
-            </li>
-            <a href="">
-              <li className="mr-6">
-                <FontAwesomeIcon
-                  icon={faSearch}
-                  className="text-xl hover:scale-125 transition-all"
-                />
-              </li>
-            </a>
-            <a href="">
-              <li className="mr-6 ">
-                <FontAwesomeIcon
-                  icon={faBell}
-                  className="text-xl hover:scale-125 transition-all"
-                />
-              </li>
-            </a>
+        <NavBar />
 
-            <a
-              href=""
-              className="mr-8 text-xl bg-rose-500 hover:text-black hover:shadow-2xl transition-all px-4 py-2 rounded-full"
-            >
-              <li><Link to={"/register"}>Register</Link></li>
-            </a>
-          </ul>
-        </header>
         <div
           id="hero"
           className="relative w-full h-screen bg-cover bg-center bg-no-repeat shadow-2xl"
           style={{ backgroundImage: `url(${background})` }}
         >
-
           <div className="absolute inset-0 bg-black bg-opacity-40 backdrop-filter backdrop-blur-lg"></div>
 
           {/* Content */}
@@ -240,6 +175,7 @@ const Home = () => {
           </div>
         </section>
       </div>
+      {/* <Footer/> */}
     </>
   );
 };

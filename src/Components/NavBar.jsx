@@ -1,52 +1,163 @@
-import React from "react";
-import Button from "./Button";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { LogOut } from "../redux/loginLogoutSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBell,
+  faSearch,
+  faBars,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
-  return (
-    <div className="md:flex font-[verdana] justify-between bg-white py-9 md:px-10 px-7">
-      <div className="font-bold text-3xl cursor-pointer flex items-center font-Poppins text-gray-800">
-        <span className="transform-scale-Y-1 text-3xl text-black-600 mr-1 pt-2">
-          <ion-icon name="logo-ionic"></ion-icon>
-        </span>
-        ING Skills
-      </div>
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-      <ul
-        className={`m-[12] md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${
-          open ? "top-20" : "top-[-490px]"
+  const isLoggedIn = localStorage.getItem("accessToken");
+  console.log("is logged in token here", isLoggedIn);
+
+  const handleLogOut = () => {
+    dispatch(LogOut())
+    navigate("/login");
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <header className="w-full flex justify-between items-center h-16 bg-gray-200 bg-opacity-50 text-black shadow-xl fixed backdrop-blur-3 z-10">
+      <div className="flex items-center">
+        <button className="ml-4 lg:hidden" onClick={toggleMenu}>
+          <FontAwesomeIcon
+            icon={isOpen ? faTimes : faBars}
+            className="text-2xl"
+          />
+        </button>
+        <ul className="hidden lg:flex items-center">
+          <li className="ml-20 text-3xl">ING</li>
+        </ul>
+      </div>
+      <ul className="hidden lg:flex ml-32">
+        <a
+          href="#"
+          className="mr-20 text-lg hover:bg-yellow-500 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-full"
+        >
+          <li>Home</li>
+        </a>
+        <a
+          href="#"
+          className="mr-20 text-lg hover:bg-lime-500 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-full"
+        >
+          <li>
+            {" "}
+            <Link to={"/topic"}>CTF</Link>
+          </li>
+        </a>
+        <a
+          href="#"
+          className="mr-20 text-lg hover:bg-sky-600 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-full"
+        >
+          <li>About Us</li>
+        </a>
+      </ul>
+      <ul className="hidden lg:flex items-center">
+        <li className="ml-4">
+          <input
+            type="text"
+            placeholder="Search..."
+            className="mr-4 px-3 py-1 rounded-full outline-none"
+          />
+        </li>
+        <a href="#">
+          <li className="mr-6">
+            <FontAwesomeIcon
+              icon={faSearch}
+              className="text-xl hover:scale-125 transition-all"
+            />
+          </li>
+        </a>
+        <a href="#">
+          <li className="mr-6">
+            <FontAwesomeIcon
+              icon={faBell}
+              className="text-xl hover:scale-125 transition-all"
+            />
+          </li>
+        </a>
+        {isLoggedIn ? (
+          <div>
+            <button
+              className="my-2 text-lg bg-rose-500 hover:scale-105 shadow-2xl transition-all px-3 py-1 rounded-full"
+              onClick={handleLogOut}
+            >
+              Logout
+            </button>
+          </div>
+        ) : (
+          <a
+            href="#"
+            className="mr-8 text-lg bg-rose-500 hover:scale-105 shadow-2xl transition-all px-3 py-1 rounded-full"
+          >
+            <li>
+              <Link to={"/register"}>Register</Link>
+            </li>
+          </a>
+        )}
+      </ul>
+      <div
+        className={`lg:hidden fixed top-16 left-0 w-full bg-gray-200 bg-opacity-50 backdrop-blur-lg transition-transform duration-300 ${
+          isOpen ? "transform translate-x-0" : "transform -translate-x-full"
         }`}
       >
-        <li className="md:ml-8 text-xl md:my-0 my-7">
-          <Link
-            to="/"
-            className="text-gray-800 hover:text-gray-400 duration-500"
+        <ul className="flex flex-col items-start ml-3 py-4">
+          <a
+            href="#"
+            className="my-2 text-lg hover:bg-yellow-500 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-full"
+            onClick={toggleMenu}
           >
-            {" "}
-            HOME
-          </Link>
-        </li>
-        <li className="md:ml-8 text-xl md:my-0 my-7">
-          <Link
-            to="/about"
-            className="text-gray-800 hover:text-gray-400 duration-500"
+            <li>Home</li>
+          </a>
+          <a
+            href="#"
+            className="my-2 text-lg hover:bg-lime-500 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-full"
+            onClick={toggleMenu}
           >
-            About
-          </Link>
-        </li>
-        <li className="md:ml-8 text-xl md:my-0 my-7">
-          <Link
-            to="/topic"
-            className="text-gray-800 hover:text-gray-400 duration-500"
+            <li>CTF</li>
+          </a>
+          <a
+            href="#"
+            className="my-2 text-lg hover:bg-sky-600 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-full"
+            onClick={toggleMenu}
           >
-            CTF
-          </Link>
-        </li>
-        <Button className="font-medium font-Poppins">
-          <Link to="/register">Register</Link>
-        </Button>
-      </ul>
-    </div>
+            <li>About Us</li>
+          </a>
+          <div className="flex flex-col items-start ml-2">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="my-2 px-3 py-1 rounded-full outline-none"
+            />
+            <a href="#">
+              <FontAwesomeIcon
+                icon={faSearch}
+                className="hidden text-xl my-2 hover:scale-125 transition-all"
+              />
+            </a>
+            <a href="#">
+              <FontAwesomeIcon
+                icon={faBell}
+                className="hidden text-xl my-2 hover:scale-125 transition-all"
+              />
+            </a>
+            <div></div>
+          </div>
+        </ul>
+      </div>
+    </header>
   );
 };
 

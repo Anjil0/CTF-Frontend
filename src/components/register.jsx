@@ -1,20 +1,36 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../redux/authAction";
+// import { registerUser } from "../redux/authAction";
+import { doRegister } from "../redux/loginLogoutSlice";
 import logo from "../assets/hacker.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert2";
+import { Country } from "country-state-city";
 import Select from "react-select";
-import { getData } from "country-list";
 
 const UserRegister = () => {
+  const countryData = Country.getAllCountries();
+  const countryOptions = countryData.map((country) => ({
+    value: country.isoCode,
+    label: country.name,
+  }));
+
+  const [selectedCountry, setSelectedCountry] = useState(null);
+
+  const handleCountryChange = (selectedOption) => {
+    setSelectedCountry(selectedOption);
+    setFormData((prevData) => ({
+      ...prevData,
+      country: selectedOption.label,
+    }));
+  };
+
   const [formData, setFormData] = useState({
     fullname: "",
     username: "",
+    country: "",
     email: "",
     password: "",
-    country: "", // Add country to formData
   });
   const [loading, setLoading] = useState(false);
 
@@ -29,18 +45,11 @@ const UserRegister = () => {
     }));
   };
 
-  const handleSelectChange = (selectedOption) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      country: selectedOption.value,
-    }));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await dispatch(registerUser(formData)).unwrap();
+      await dispatch(doRegister(formData)).unwrap();
       swal.fire({
         icon: "success",
         title: "Registration Successful",
@@ -50,20 +59,16 @@ const UserRegister = () => {
         navigate("/login");
       }, 3000);
     } catch (err) {
+      console.log("Error occurred in register page", err);
       swal.fire({
         icon: "error",
         title: "Registration Failed",
-        text: err,
+        text: err.message,
       });
     } finally {
       setLoading(false);
     }
   };
-
-  const countries = getData().map((country) => ({
-    value: country.code,
-    label: country.name,
-  }));
 
   return (
     <div className="flex">
@@ -111,6 +116,15 @@ const UserRegister = () => {
               className="bg-white appearance-none rounded-md relative block w-full h-9 px-3 py-2 border-3 border-gray-300 text-gray-900"
               value={formData.username}
               onChange={handleChange}
+            />
+          </div>
+          <div>
+            <p className="text-left text-white">Country:</p>
+            <Select
+              id="country"
+              value={selectedCountry}
+              onChange={handleCountryChange}
+              options={countryOptions}
             />
           </div>
           <div>

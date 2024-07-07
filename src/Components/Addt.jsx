@@ -13,9 +13,9 @@ const Addt = () => {
   const handleClick = async () => {
     if (!title || !description || !difficulty) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Please fill out all fields!',
+        icon: "error",
+        title: "Oops...",
+        text: "Please fill out all fields!",
       });
     } else {
       try {
@@ -58,8 +58,8 @@ const Addt = () => {
           <div>
             <label htmlFor="topic-title" className="text-24px font-semibold block text-gray-700">Title</label>
             <input
-              id="topic-title"
-              name="topic-title"
+              id="topic"
+              name="topic"
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -144,13 +144,13 @@ const Addt = () => {
               className="text-20px w-220px h-55px flex items-center px-4 py-2 bg-yellow-600 text-white rounded-md shadow-md hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 font-bold"
             >
               <FiPlus className="mr-2" />
-              Add Topic
+              Submit
             </button>
           </div>
         </form>
       </div>
     </div>
   );
-}
+};
 
 export default Addt;
