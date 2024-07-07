@@ -4,12 +4,10 @@ import UserLogin from "../src/Components/login.jsx";
 import UserRegister from "../src/Components/register.jsx";
 import Home from "../src/pages/HomePage.jsx";
 import Intro from "../src/Components/intro.jsx";
-import Topic from "../src/Components/topic.jsx";
-import Scenario from "../src/Components/scenario.jsx";
+import Scenario from "../src/Components/scenario.jsx";``
 import Admin from "../src/pages/Admin.jsx";
 import "./App.css";
 import CtfDetail from "../src/Components/newctfdetail.jsx";
-import Addt from "./components/Addt.jsx";import Addq from "./Components/addq.jsx";
 import Addt from "./Components/addt.jsx";
 import Leaderboard from "../src/Components/leaderboard.jsx";
 import Footer from "./components/Footer.jsx";

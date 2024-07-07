@@ -1,7 +1,5 @@
 
 import React, { useState } from 'react';
-import Swal from 'sweetalert2';
-import Footer from './Footer';
 import { motion } from 'framer-motion';
 import utshab from '../assets/utshab.jpg';
 import ayush from '../assets/ayush.jpg';
