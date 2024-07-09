@@ -1,14 +1,21 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import { userLogin } from "../redux/authAction";
 import { doLogin } from "../redux/loginLogoutSlice";
 import logo from "../assets/hackerimage.jpg";
 import { Link } from "react-router-dom";
 import swal from "sweetalert2";
 
 const LoginUser = () => {
+  const isLoggedIn = localStorage.getItem("accessToken");
+  console.log("is logged in token here", isLoggedIn);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({

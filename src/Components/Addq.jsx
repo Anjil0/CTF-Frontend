@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addQuestions } from "../redux/questionSlice";
+import { fetchTopic } from "../redux/topicSlice";
+import Select from "react-select";
 
 const Addq = () => {
   const [title, setTitle] = useState("");
@@ -9,38 +11,54 @@ const Addq = () => {
   const [tools, setTools] = useState("");
   const [scenario, setScenario] = useState("");
   const [process, setProcess] = useState("");
-  const [topic, setTopic] = useState("");
+  const [topic, setTopic] = useState(null);
   const [questions, setQuestions] = useState([
     { question: "", answer: "", hint: "" },
   ]);
 
   const dispatch = useDispatch();
+  const ourTopics = useSelector(
+    (state) => state.topicSlice?.topics?.Result?.Topics
+  );
 
-  const handleInputChange = (e, index) => {
+  useEffect(() => {
+    dispatch(fetchTopic());
+  }, [dispatch]);
+
+  const handleTopicChange = (topic) => {
+    console.log(topic);
+    setTopic(topic ? topic.label : null);
+  };
+
+  const handleQuestionChange = (e, index) => {
     const { name, value } = e.target;
     const newQuestions = [...questions];
     newQuestions[index][name] = value;
     setQuestions(newQuestions);
   };
 
-  const handleAddQuestions = async (
-    title,
-    introduction,
-    tools,
-    scenario,
-    process,
-    questions,
-    topic
-  ) => {
+  const handleAddQuestions = async () => {
     try {
+      if (
+        !title ||
+        !introduction ||
+        !tools ||
+        !scenario ||
+        !process ||
+        !topic
+      ) {
+        throw new Error(
+          "Title, Introduction, Tools, Scenario, Process, and Topic are required."
+        );
+      }
+
       console.log(
-        "topics to be sent",
+        "The ourdata is",
         title,
         introduction,
         tools,
         scenario,
         process,
-        questions,
         topic
       );
 
@@ -52,9 +70,11 @@ const Addq = () => {
           scenario,
           process,
           quiz: questions,
-          topic,
+           topic,
         })
+
       );
+      console.log("The topic is", topic);
 
       if (addQuestions.fulfilled.match(resultAction)) {
         const { StatusCode, Result } = resultAction.payload;
@@ -66,7 +86,6 @@ const Addq = () => {
             timer: 1500,
             showConfirmButton: false,
           });
-          // dispatch(fetchTopic());
         } else {
           Swal.fire({
             icon: "warning",
@@ -94,23 +113,33 @@ const Addq = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    if (!title || !introduction || !tools || !scenario || !process || !topic) {
+    if (
+      !title ||
+      !introduction ||
+      !tools ||
+      !scenario ||
+      !process ||
+      !topic
+    )
+
+    {
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Please fill out all fields!",
       });
     } else {
-      handleAddQuestions(
-        title,
-        introduction,
-        tools,
-        scenario,
-        process,
-        questions,
-        topic
-      );
+      handleAddQuestions();
     }
+
+    console.log("The topic is ", topic);
+
+    console.log("The data is ",title,
+      introduction,
+      tools,
+      scenario,
+      process,
+      topic, questions);
   };
 
   return (
@@ -167,23 +196,30 @@ const Addq = () => {
         </div>
         <div className="mb-4">
           <label className="block text-gray-700">Topic</label>
-          <textarea
+          <Select
+            options={ourTopics?.map((t) => ({ value: t._id, label: t.topic }))}
             name="topic"
-            value={topic}
-            onChange={(e) => setTopic(e.target.value)}
+
+            onChange={handleTopicChange}
             className="w-full mt-2 p-2 border border-gray-300 rounded"
+            required
           />
         </div>
         {questions.map((q, index) => (
-          <div key={index} className="mb-4 p-4 border border-gray-200 rounded bg-gray-50">
-            <h2 className="text-lg font-semibold mb-2">Quiz Question {index + 1}</h2>
+          <div
+            key={index}
+            className="mb-4 p-4 border border-gray-200 rounded bg-gray-50"
+          >
+            <h2 className="text-lg font-semibold mb-2">
+              Quiz Question {index + 1}
+            </h2>
             <div className="mb-2">
               <label className="block text-gray-700">Question</label>
               <input
                 type="text"
                 name="question"
                 value={q.question}
-                onChange={(e) => handleInputChange(e, index)}
+                onChange={(e) => handleQuestionChange(e, index)}
                 className="w-full mt-2 p-2 border border-gray-300 rounded"
                 required
               />
@@ -194,7 +230,7 @@ const Addq = () => {
                 type="text"
                 name="answer"
                 value={q.answer}
-                onChange={(e) => handleInputChange(e, index)}
+                onChange={(e) => handleQuestionChange(e, index)}
                 className="w-full mt-2 p-2 border border-gray-300 rounded"
                 required
               />
@@ -205,7 +241,7 @@ const Addq = () => {
                 type="text"
                 name="hint"
                 value={q.hint}
-                onChange={(e) => handleInputChange(e, index)}
+                onChange={(e) => handleQuestionChange(e, index)}
                 className="w-full mt-2 p-2 border border-gray-300 rounded"
               />
             </div>
@@ -224,3 +260,4 @@ const Addq = () => {
 };
 
 export default Addq;
+

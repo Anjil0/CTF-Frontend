@@ -4,7 +4,7 @@ import axios from "axios";
 const apiURL = "http://localhost:5300";
 
 export const addQuestions = createAsyncThunk(
-  "add questions",
+  "addQuestions",
   async (
     { title, introduction, tools, scenario, process, quiz, topic },
     { rejectWithValue }
@@ -36,11 +36,36 @@ export const addQuestions = createAsyncThunk(
           },
         }
       );
-      console.log(response.data);
-      console.log(response.data);
-      return response.data;
+
+      console.log({ data: response.data, topic });
+      return { data: response.data, topic };
     } catch (error) {
       console.error(error);
+      return rejectWithValue(
+        error.response ? error.response.data : error.message
+      );
+    }
+  }
+);
+
+export const fetchQuestions = createAsyncThunk(
+  "fetchQuestions",
+  async ({ topicId, token }, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${apiURL}/api/question/getQuestionByTopic/${topicId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log({ data: response.data, topicId });
+
+      return { data: response.data, topicId };
+    } catch (error) {
+      console.log("Error fetching questions:", error);
       return rejectWithValue(
         error.response ? error.response.data : error.message
       );
@@ -53,7 +78,7 @@ const questionSlice = createSlice({
   initialState: {
     isLoading: false,
     error: null,
-    questions: [],
+    questionsByTopic: {},
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -63,19 +88,43 @@ const questionSlice = createSlice({
     });
 
     builder.addCase(addQuestions.fulfilled, (state, action) => {
-      const data = action.payload?.Result?.QuestionSet;
+      const { data, topic } = action.payload || {};
       if (data) {
-        return {
-          ...state,
-          questions: [data],
-          isLoading: false,
-          error: null,
-        };
+        if (!state.questionsByTopic[topic]) {
+          state.questionsByTopic[topic] = [];
+        }
+        state.questionsByTopic[topic].push(data);
+        state.isLoading = false;
+        state.error = null;
+      } else {
+        state.isLoading = false;
+        state.error = "Failed to add questions";
       }
-      return state;
     });
 
     builder.addCase(addQuestions.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload || action.error.message;
+    });
+
+    builder.addCase(fetchQuestions.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+
+    builder.addCase(fetchQuestions.fulfilled, (state, action) => {
+      const { data, topicId } = action.payload || {};
+      if (data) {
+        state.questionsByTopic[topicId] = data;
+        state.isLoading = false;
+        state.error = null;
+      } else {
+        state.isLoading = false;
+        state.error = "Failed to fetch questions";
+      }
+    });
+
+    builder.addCase(fetchQuestions.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload || action.error.message;
     });

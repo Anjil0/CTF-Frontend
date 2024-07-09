@@ -46,7 +46,7 @@ const NavBar = () => {
           href="#"
           className="mr-20 text-lg hover:bg-yellow-500 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-full"
         >
-          <li>Home</li>
+          <li> <Link to={"/"}>Home</Link></li>
         </a>
         <a
           href="#"
@@ -126,7 +126,7 @@ const NavBar = () => {
             className="my-2 text-lg hover:bg-lime-500 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-full"
             onClick={toggleMenu}
           >
-            <li>CTF</li>
+            <li><Link to={"/topic"}>CTF</Link></li>
           </a>
           <a
             href="#"
