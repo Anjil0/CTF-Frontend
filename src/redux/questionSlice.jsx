@@ -3,6 +3,7 @@ import axios from "axios";
 
 const apiURL = "http://localhost:5300";
 
+// Thunk for adding questions using the backend api
 export const addQuestions = createAsyncThunk(
   "addQuestions",
   async (
@@ -38,6 +39,7 @@ export const addQuestions = createAsyncThunk(
       );
 
       console.log({ data: response.data, topic });
+      console.log(response);
       return { data: response.data, topic };
     } catch (error) {
       console.error(error);
@@ -48,6 +50,7 @@ export const addQuestions = createAsyncThunk(
   }
 );
 
+// Thunk for getting the questions
 export const fetchQuestions = createAsyncThunk(
   "fetchQuestions",
   async ({ topicId, token }, { rejectWithValue }) => {
@@ -61,7 +64,7 @@ export const fetchQuestions = createAsyncThunk(
           },
         }
       );
-      console.log({ data: response.data, topicId });
+      console.log("Fetched Data:", response.data);
 
       return { data: response.data, topicId };
     } catch (error) {
@@ -73,6 +76,7 @@ export const fetchQuestions = createAsyncThunk(
   }
 );
 
+// slice for questions
 const questionSlice = createSlice({
   name: "questions",
   initialState: {

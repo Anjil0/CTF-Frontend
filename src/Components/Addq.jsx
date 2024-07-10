@@ -12,9 +12,7 @@ const Addq = () => {
   const [scenario, setScenario] = useState("");
   const [process, setProcess] = useState("");
   const [topic, setTopic] = useState(null);
-  const [questions, setQuestions] = useState([
-    { question: "", answer: "", hint: "" },
-  ]);
+  const [quiz, setQuiz] = useState([{ question: "", answer: "", hint: "" }]);
 
   const dispatch = useDispatch();
   const ourTopics = useSelector(
@@ -32,9 +30,10 @@ const Addq = () => {
 
   const handleQuestionChange = (e, index) => {
     const { name, value } = e.target;
-    const newQuestions = [...questions];
+    const newQuestions = [...quiz];
     newQuestions[index][name] = value;
-    setQuestions(newQuestions);
+    setQuiz(newQuestions);
+    console.log("Updated Quiz State:", newQuestions);
   };
 
   const handleAddQuestions = async () => {
@@ -52,32 +51,23 @@ const Addq = () => {
         );
       }
 
-      console.log(
-        "The ourdata is",
+      const payload = {
         title,
         introduction,
         tools,
         scenario,
         process,
-        topic
-      );
+        quiz,
+        topic,
+      };
 
-      const resultAction = await dispatch(
-        addQuestions({
-          title,
-          introduction,
-          tools,
-          scenario,
-          process,
-          quiz: questions,
-           topic,
-        })
+      console.log("Payload being sent to backend:", payload);
 
-      );
-      console.log("The topic is", topic);
+      const resultAction = await dispatch(addQuestions(payload));
 
       if (addQuestions.fulfilled.match(resultAction)) {
-        const { StatusCode, Result } = resultAction.payload;
+        const { StatusCode, Result } = resultAction.payload.data;
+        console.log("Result Action Payload:", resultAction.payload);
         if (StatusCode === 200) {
           Swal.fire({
             icon: "success",
@@ -95,11 +85,7 @@ const Addq = () => {
         }
       } else if (addQuestions.rejected.match(resultAction)) {
         const errorMessage = resultAction.error.message;
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: errorMessage,
-        });
+        Swal.fire({ icon: "error", title: "Error", text: errorMessage });
       }
     } catch (error) {
       console.error("Failed to create topic:", error);
@@ -113,16 +99,7 @@ const Addq = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    if (
-      !title ||
-      !introduction ||
-      !tools ||
-      !scenario ||
-      !process ||
-      !topic
-    )
-
-    {
+    if (!title || !introduction || !tools || !scenario || !process || !topic) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -134,12 +111,16 @@ const Addq = () => {
 
     console.log("The topic is ", topic);
 
-    console.log("The data is ",title,
+    console.log(
+      "The data is ",
+      title,
       introduction,
       tools,
       scenario,
       process,
-      topic, questions);
+      topic,
+      quiz
+    );
   };
 
   return (
@@ -199,13 +180,12 @@ const Addq = () => {
           <Select
             options={ourTopics?.map((t) => ({ value: t._id, label: t.topic }))}
             name="topic"
-
             onChange={handleTopicChange}
             className="w-full mt-2 p-2 border border-gray-300 rounded"
             required
           />
         </div>
-        {questions.map((q, index) => (
+        {quiz.map((q, index) => (
           <div
             key={index}
             className="mb-4 p-4 border border-gray-200 rounded bg-gray-50"
@@ -260,4 +240,3 @@ const Addq = () => {
 };
 
 export default Addq;
-
