@@ -1,142 +1,263 @@
-import React, { useState } from 'react';
-import { FiChevronDown, FiPlus } from 'react-icons/fi';
-import Swal from 'sweetalert2';
+import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { addQuestions } from "../redux/questionSlice";
+import { fetchTopic } from "../redux/topicSlice";
+import Select from "react-select";
 
 const Addq = () => {
-  const [questionTitle, setQuestionTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [questionType, setQuestionType] = useState('');
-  const [hoveredType, setHoveredType] = useState('');
+  const [title, setTitle] = useState("");
+  const [introduction, setIntroduction] = useState("");
+  const [tools, setTools] = useState("");
+  const [scenario, setScenario] = useState("");
+  const [process, setProcess] = useState("");
+  const [topic, setTopic] = useState(null);
+  const [questions, setQuestions] = useState([
+    { question: "", answer: "", hint: "" },
+  ]);
 
-  const handleClick = () => {
-    if (!questionTitle || !description || !questionType) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Please fill out all fields!',
-      });
-    } else {
-      Swal.fire({
-        position: "middle-center",
-        icon: "success",
-        title: "Question has been added",
-        showConfirmButton: false,
-        timer: 1500
-      });
+  const dispatch = useDispatch();
+  const ourTopics = useSelector(
+    (state) => state.topicSlice?.topics?.Result?.Topics
+  );
 
+  useEffect(() => {
+    dispatch(fetchTopic());
+  }, [dispatch]);
+
+  const handleTopicChange = (topic) => {
+    console.log(topic);
+    setTopic(topic ? topic.label : null);
+  };
+
+  const handleQuestionChange = (e, index) => {
+    const { name, value } = e.target;
+    const newQuestions = [...questions];
+    newQuestions[index][name] = value;
+    setQuestions(newQuestions);
+  };
+
+  const handleAddQuestions = async () => {
+    try {
+      if (
+        !title ||
+        !introduction ||
+        !tools ||
+        !scenario ||
+        !process ||
+        !topic
+      ) {
+        throw new Error(
+          "Title, Introduction, Tools, Scenario, Process, and Topic are required."
+        );
+      }
+
+      console.log(
+        "The ourdata is",
+        title,
+        introduction,
+        tools,
+        scenario,
+        process,
+        topic
+      );
+
+      const resultAction = await dispatch(
+        addQuestions({
+          title,
+          introduction,
+          tools,
+          scenario,
+          process,
+          quiz: questions,
+           topic,
+        })
+
+      );
+      console.log("The topic is", topic);
+
+      if (addQuestions.fulfilled.match(resultAction)) {
+        const { StatusCode, Result } = resultAction.payload;
+        if (StatusCode === 200) {
+          Swal.fire({
+            icon: "success",
+            title: "Success!",
+            text: Result.message,
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        } else {
+          Swal.fire({
+            icon: "warning",
+            title: "Warning!",
+            text: `Received unexpected status code: ${StatusCode}`,
+          });
+        }
+      } else if (addQuestions.rejected.match(resultAction)) {
+        const errorMessage = resultAction.error.message;
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: errorMessage,
+        });
+      }
+    } catch (error) {
+      console.error("Failed to create topic:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "An error occurred while adding questions. Please try again later.",
+      });
     }
   };
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (
+      !title ||
+      !introduction ||
+      !tools ||
+      !scenario ||
+      !process ||
+      !topic
+    )
+
+    {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please fill out all fields!",
+      });
+    } else {
+      handleAddQuestions();
+    }
+
+    console.log("The topic is ", topic);
+
+    console.log("The data is ",title,
+      introduction,
+      tools,
+      scenario,
+      process,
+      topic, questions);
+  };
+
   return (
-    <div className="bg-gray-100 font-[verdana] flex items-center justify-center h-screen">
-      <div className="bg-white p-8 rounded-lg shadow-lg h-auto w-full max-w-lg">
-        <form className="space-y-6">
-          <div>
-            <label htmlFor="question-title" className="text-[24px] font-semibold block text-gray-700">Title</label>
-            <input
-              id="question-title"
-              name="question-title"
-              type="text"
-              value={questionTitle}
-              onChange={(e) => setQuestionTitle(e.target.value)}
-              className="text-[20px] h-[50px] mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-md focus:outline-none focus:ring-yellow-600 focus:border-yellow-600"
-              placeholder="Enter question title..."
-            />
-          </div>
+    <div className="max-w-4xl mx-auto p-8 bg-white shadow-md rounded-md">
+      <h1 className="text-2xl font-bold mb-4">Quiz Form</h1>
+      <form>
+        <div className="mb-4">
+          <label className="block text-gray-700">Title</label>
+          <input
+            type="text"
+            name="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full mt-2 p-2 border border-gray-300 rounded"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Introduction</label>
+          <textarea
+            name="introduction"
+            value={introduction}
+            onChange={(e) => setIntroduction(e.target.value)}
+            className="w-full mt-2 p-2 border border-gray-300 rounded"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Tools</label>
+          <textarea
+            name="tools"
+            value={tools}
+            onChange={(e) => setTools(e.target.value)}
+            className="w-full mt-2 p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Scenario</label>
+          <textarea
+            name="scenario"
+            value={scenario}
+            onChange={(e) => setScenario(e.target.value)}
+            className="w-full mt-2 p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Process</label>
+          <textarea
+            name="process"
+            value={process}
+            onChange={(e) => setProcess(e.target.value)}
+            className="w-full mt-2 p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Topic</label>
+          <Select
+            options={ourTopics?.map((t) => ({ value: t._id, label: t.topic }))}
+            name="topic"
 
-          <div>
-            <label htmlFor="description" className="text-[24px] block font-semibold text-gray-700">Description</label>
-            <textarea
-              id="description"
-              name="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows="4"
-              className="text-[20px] mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-md focus:outline-none focus:ring-yellow-600 focus:border-yellow-600 resize-none"
-              placeholder="Enter description..."
-            ></textarea>
-          </div>
-
-          <div className="relative group">
-            <label htmlFor="question-type" className="text-[24px] block font-semibold text-gray-700">Question Type</label>
-            <div className="flex items-center mt-1 w-full border border-gray-300 rounded-md shadow-md focus-within:ring-yellow-600 focus-within:border-yellow-600">
+            onChange={handleTopicChange}
+            className="w-full mt-2 p-2 border border-gray-300 rounded"
+            required
+          />
+        </div>
+        {questions.map((q, index) => (
+          <div
+            key={index}
+            className="mb-4 p-4 border border-gray-200 rounded bg-gray-50"
+          >
+            <h2 className="text-lg font-semibold mb-2">
+              Quiz Question {index + 1}
+            </h2>
+            <div className="mb-2">
+              <label className="block text-gray-700">Question</label>
               <input
-                id="question-type"
-                name="question-type"
                 type="text"
-                value={questionType}
-                readOnly
-                className="text-[20px] block w-full px-4 py-2 focus:outline-none"
-                placeholder={hoveredType || "Select question type..."}
+                name="question"
+                value={q.question}
+                onChange={(e) => handleQuestionChange(e, index)}
+                className="w-full mt-2 p-2 border border-gray-300 rounded"
+                required
               />
-              <FiChevronDown className="mx-2 text-gray-400" />
             </div>
-            <div className="absolute mt-1 w-full hidden group-hover:block">
-              <div className="bg-white border border-gray-300 rounded-md shadow-lg">
-                <button
-                  type="button"
-                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                  onMouseEnter={() => setHoveredType('Technology')}
-                  onMouseLeave={() => setHoveredType('')}
-                  onClick={() => setQuestionType('Technology')}
-                >
-                  Technology
-                </button>
-                <button
-                  type="button"
-                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                  onMouseEnter={() => setHoveredType('Science')}
-                  onMouseLeave={() => setHoveredType('')}
-                  onClick={() => setQuestionType('Science')}
-                >
-                  Science
-                </button>
-                <button
-                  type="button"
-                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                  onMouseEnter={() => setHoveredType('Art')}
-                  onMouseLeave={() => setHoveredType('')}
-                  onClick={() => setQuestionType('Art')}
-                >
-                  Art
-                </button>
-                <button
-                  type="button"
-                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                  onMouseEnter={() => setHoveredType('Business')}
-                  onMouseLeave={() => setHoveredType('')}
-                  onClick={() => setQuestionType('Business')}
-                >
-                  Business
-                </button>
-                <button
-                  type="button"
-                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                  onMouseEnter={() => setHoveredType('Health')}
-                  onMouseLeave={() => setHoveredType('')}
-                  onClick={() => setQuestionType('Health')}
-                >
-                  Health
-                </button>
-              </div>
+            <div className="mb-2">
+              <label className="block text-gray-700">Answer</label>
+              <input
+                type="text"
+                name="answer"
+                value={q.answer}
+                onChange={(e) => handleQuestionChange(e, index)}
+                className="w-full mt-2 p-2 border border-gray-300 rounded"
+                required
+              />
+            </div>
+            <div className="mb-2">
+              <label className="block text-gray-700">Hint</label>
+              <input
+                type="text"
+                name="hint"
+                value={q.hint}
+                onChange={(e) => handleQuestionChange(e, index)}
+                className="w-full mt-2 p-2 border border-gray-300 rounded"
+              />
             </div>
           </div>
-
-          <div className="flex justify-center items-center mt-4">
-            <button
-              type="button"
-              onClick={handleClick}
-              className="text-[20px] w-[220px] h-[55px] flex items-center px-4 py-2 bg-yellow-600 text-white rounded-md shadow-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 font-bold"
-            >
-              <FiPlus className="mr-2" />
-              Add Question
-            </button>
-          </div>
-        </form>
-      </div>
+        ))}
+        <button
+          type="submit"
+          className="bg-green-500 text-white px-10 py-3 rounded mt-4 float-right hover:bg-green-700"
+          onClick={handleClick}
+        >
+          Submit
+        </button>
+      </form>
     </div>
   );
-}
+};
 
 export default Addq;
 

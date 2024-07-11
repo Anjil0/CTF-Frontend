@@ -6,7 +6,6 @@ import UserRegister from "./components/register";
 // import Home from "./pages/HomePage";
 import Intro from "./components/intro";
 import Topic from "./components/topic";
-import Scenario from "./components/scenario";
 import Admin from "./pages/Admin.jsx";
 import "./App.css";
 import CtfDetail from "./components/newctfdetail.jsx";
@@ -15,6 +14,7 @@ import Leaderboard from "./components/leaderboard.jsx";
 import Footer from "./components/Footer.jsx";
 import UserProfile from "./components/UserProfile.jsx";
 import ParallaxComponent from "./pages/parallax.jsx";
+import Addq from "./components/Addq.jsx";
 
 function App() {
   return (
@@ -24,12 +24,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/topi" element={<content />} />
           <Route path="/addTopic" element={<Addt />} />
           <Route path="/register" element={<UserRegister />} />
           <Route path="/login" element={<UserLogin />} />
-          <Route path="/ctfdetailpage" element={<CtfDetail />} />
-          <Route path="/scenario" element={<Scenario />} />
-
+          <Route path="/addQ" element={<Addq />} />
           <Route path="/topic/:id" element={<Intro />} />
           <Route path="/topic" element={<Topic />} />
           <Route path="/scenario/:id" element={<Scenario />} />
@@ -38,10 +37,9 @@ function App() {
           <Route path="/admin" element={<Admin />} />
 
           <Route path="/newctfdetail" element={<CtfDetail />} />
+          <Route path="/newctfdetail/:id" element={<CtfDetail />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/footer" element={<Footer />} />
-          <Route path="/parallax" element={<ParallaxComponent/>}/>
-
         </Routes>
       </BrowserRouter>
     </div>

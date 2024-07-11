@@ -39,22 +39,28 @@ const NavBar = () => {
           <li className="ml-14 text-[30px]">Dashboard</li>
         </ul>
       </div>
-      <ul className="hidden lg:flex  w-2/4">
-        <li className=" text-lg hover:bg-yellow-500 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-xl mr-4">
-          <Link to="/dashboard">Dashboard</Link>
-        </li>
-        <li className=" text-lg hover:bg-yellow-500 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-xl mr-4">
-          <Link to="/">Home</Link>
-        </li>
-        <li className=" text-lg hover:bg-lime-500 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-xl mr-4">
-          <Link to="/topic">CTF</Link>
-        </li>
-        <li className=" text-lg hover:bg-orange-500 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-xl mr-4">
-          <Link to="/products">Products</Link>
-        </li>
-        <li className=" text-lg hover:bg-sky-600 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-xl mr-4">
-          <Link to="/about">About&nbsp;Us</Link>
-        </li>
+      <ul className="hidden lg:flex ml-32">
+        <a
+          href="#"
+          className="mr-20 text-lg hover:bg-yellow-500 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-full"
+        >
+          <li> <Link to={"/"}>Home</Link></li>
+        </a>
+        <a
+          href="#"
+          className="mr-20 text-lg hover:bg-lime-500 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-full"
+        >
+          <li>
+            {" "}
+            <Link to={"/topic"}>CTF</Link>
+          </li>
+        </a>
+        <a
+          href="#"
+          className="mr-20 text-lg hover:bg-sky-600 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-full"
+        >
+          <li>About Us</li>
+        </a>
       </ul>
       <ul className="hidden lg:flex items-center w-1/3">
         <li className="relative ml-4">

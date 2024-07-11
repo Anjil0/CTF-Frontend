@@ -2,6 +2,8 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import loginLogoutSlice from "./loginLogoutSlice";
+import questionSlice from "./questionSlice";
+// import userSlice from "./userSlice";
 import topicSlice from "./topicSlice";
 // import userSlice from "./userSlice";
 
@@ -9,7 +11,7 @@ import topicSlice from "./topicSlice";
 const rootReducer = combineReducers({
   topicSlice,
   loginLogout: loginLogoutSlice,
-  // userSlice,
+  questionSlice,
 });
 
 // Configure persist settings

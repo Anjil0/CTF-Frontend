@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import left from "../assets/left-arrow.png";
 import right from "../assets/right-arrow.png";
 import profilePic from "../assets/hacker.jpg";
-import Addt from "../components/Addt";
+import Addq from "../components/Addq";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createTopic,
@@ -143,7 +143,7 @@ const Admin = () => {
               </a>
               <a href="#">
                 <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-12 flex items-center">
-                  <h2 className="ml-3 text-lg text-black">Add Questions</h2>
+                  <h2 className="ml-3 text-lg text-black" >   <Link to={"/addQ"}>Add Question</Link></h2>
                 </div>
               </a>
               <a href="#">
