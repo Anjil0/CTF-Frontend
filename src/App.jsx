@@ -15,6 +15,7 @@ import Footer from "./components/Footer.jsx";
 import UserProfile from "./components/UserProfile.jsx";
 import ParallaxComponent from "./pages/parallax.jsx";
 import Addq from "./components/Addq.jsx";
+import NavBar from "./components/NavBar.jsx";
 
 function App() {
   return (
@@ -25,13 +26,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/topi" element={<content />} />
+          <Route path="/NavBar" element={<NavBar />} />
           <Route path="/addTopic" element={<Addt />} />
           <Route path="/register" element={<UserRegister />} />
           <Route path="/login" element={<UserLogin />} />
           <Route path="/addQ" element={<Addq />} />
           <Route path="/topic/:id" element={<Intro />} />
           <Route path="/topic" element={<Topic />} />
-          <Route path="/scenario/:id" element={<Scenario />} />
+          {/* <Route path="/scenario/:id" element={<Scenario />} /> */}
           <Route path="/ctfdetail" element={<CtfDetail />} />
           <Route path="/userprofile" element={<UserProfile />} />
           <Route path="/admin" element={<Admin />} />
