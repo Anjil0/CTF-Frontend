@@ -11,16 +11,18 @@ export const addQuestions = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      console.log(
-        "createTopic getting data",
-        title,
-        introduction,
-        tools,
-        scenario,
-        process,
-        quiz,
-        topic
-      );
+      // console.log(
+      //   "createTopic getting data",
+      //   title,
+      //   introduction,
+      //   tools,
+      //   scenario,
+      //   process,
+      //   quiz,
+      //   topic
+      // );
+
+      console.log("quiz here" + quiz);
 
       const token = localStorage.getItem("accessToken");
       if (!token) {

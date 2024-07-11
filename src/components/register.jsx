@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-// import { registerUser } from "../redux/authAction";
 import { doRegister } from "../redux/loginLogoutSlice";
 import logo from "../assets/hacker.jpg";
 import { Link, useNavigate } from "react-router-dom";

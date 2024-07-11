@@ -102,7 +102,10 @@ const loginLogOutSlice = createSlice({
         state.userInfo = action.payload?.Result?.user_data;
         state.userToken = action.payload?.Result?.accessToken;
         state.isAuthenticated = true;
-        localStorage.setItem("accessToken", action.payload?.Result?.accessToken);
+        localStorage.setItem(
+          "accessToken",
+          action.payload?.Result?.accessToken
+        );
         localStorage.setItem("role", action.payload?.Result?.user_data?.role);
       })
       .addCase(doLogin.rejected, (state, action) => {
