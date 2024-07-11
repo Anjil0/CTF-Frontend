@@ -1,5 +1,6 @@
 import React from "react";
 import { ParallaxProvider, Parallax } from "react-scroll-parallax";
+
 import Navbar from "../components/NavBar";
 import background from "../assets/background.jpg";
 import ingLogo from "../assets/ingLogo.png";
@@ -10,7 +11,6 @@ import iic from "../assets/iic.png";
 import informatics from "../assets/informatics.png";
 import kavya from "../assets/kavya.png";
 import vairav from "../assets/vairav.png";
-import Footer from "../components/Footer";
 import Marquee from "react-fast-marquee";
 
 const ParallaxComponent = () => {
@@ -191,7 +191,7 @@ const ParallaxComponent = () => {
                 >
                   <div
                     className="w-full h-5/6 bg-gray-500 rounded-3xl shadow-2xl bg-cover bg-center bg-no-repeat hover:scale-105 transition-all"
-                    style={{ backgroundImage: url(${background}) }}
+                    style={{ backgroundImage: `url(${background})` }}
                   ></div>
                   <h1 className="h-full text-center text-3xl font-bold text-gray-800 uppercase mt-2 text-shadow-sm">
                     Disgruntled
@@ -202,8 +202,8 @@ const ParallaxComponent = () => {
                     Expose
                   </h1>
                   <div
-                    className="w-full h-5/6 bg-gray-500 rounded-3xl shadow-2xl bg-cover bg-center bg-no-repeat mt-1 hover:scale-105 transition-all"
-                    style={{ backgroundImage: url(${background}) }}
+                    className="w-full h-5/6 bg-gray-500 rounded-3xl shadow-2xl bg-cover bg-center bg-no-repeat hover:scale-105 transition-all"
+                    style={{ backgroundImage: `url(${background})` }}
                   ></div>
                 </div>
                 <Parallax
@@ -212,7 +212,7 @@ const ParallaxComponent = () => {
                 >
                   <div
                     className="w-full h-5/6 bg-gray-500 rounded-3xl shadow-2xl bg-cover bg-center bg-no-repeat hover:scale-105 transition-all"
-                    style={{ backgroundImage: url(${background}) }}
+                    style={{ backgroundImage: `url(${background})` }}
                   ></div>
                   <h1 className="h-full text-center text-3xl font-bold text-gray-800 mt-2 uppercase text-shadow-sm">
                     Cyborg
@@ -235,7 +235,6 @@ const ParallaxComponent = () => {
         </div>
       </div>
       <div>
-        <Footer />
       </div>
     </ParallaxProvider>
   );

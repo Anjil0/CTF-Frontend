@@ -19,6 +19,7 @@ import ParallaxComponent from "./pages/parallax.jsx";
 function App() {
   return (
     <>
+    <div className="mt-16">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -39,10 +40,11 @@ function App() {
           <Route path="/newctfdetail" element={<CtfDetail />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/footer" element={<Footer />} />
-          <Route path="/parallax" element={<parallax />} />
+          <Route path="/parallax" element={<ParallaxComponent/>}/>
 
         </Routes>
       </BrowserRouter>
+    </div>
     </>
   );
 }
