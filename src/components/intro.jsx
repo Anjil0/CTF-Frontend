@@ -6,9 +6,8 @@ import img1 from "../assets/img1.jpeg";
 const Intro = () => {
   const {id} = useParams();
   console.log('id from params', id)
-  const { id } = useParams();
+  
 
-  console.log("The id is:", id);
 
   const navigate = useNavigate();
 

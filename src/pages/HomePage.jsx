@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import NavBar from "../components/NavBar";
 import background from "../assets/background.jpg";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";

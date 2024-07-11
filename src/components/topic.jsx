@@ -10,7 +10,7 @@ const Topic = () => {
   const isLoggedIn = localStorage.getItem("accessToken");
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  
   const [topics, setTopics] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
