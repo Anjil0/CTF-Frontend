@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import img1 from "../assets/img1.jpeg";
 import NavBar from "../components/NavBar";
@@ -123,19 +123,19 @@ const Topic = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchTopics = async () => {
-      try {
-        const response = await axios.get('http://localhost:5300/api/topic/getAllTopic');
-        console.log("response from get topics", response)
-        setTopics(response.data?.Result?.Topics);
-      } catch (err) {
-        setError('Failed to fetch topics');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchTopics = async () => {
+    try {
+      const response = await axios.get('http://localhost:5300/api/topic/getAllTopic');
+      console.log("response from get topics", response)
+      setTopics(response.data?.Result?.Topics);
+    } catch (err) {
+      setError('Failed to fetch topics');
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchTopics();
   }, []);
 

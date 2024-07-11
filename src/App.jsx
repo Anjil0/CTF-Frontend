@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/HomePage.jsx";
 import UserLogin from "./components/login";
 import UserRegister from "./components/register";
 // import Home from "./pages/HomePage";
@@ -13,13 +14,14 @@ import Addt from "./components/Addt.jsx";
 import Leaderboard from "./components/leaderboard.jsx";
 import Footer from "./components/Footer.jsx";
 import UserProfile from "./components/UserProfile.jsx";
+import ParallaxComponent from "./pages/parallax.jsx";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/" element={<Home />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/addTopic" element={<Addt />} />
           <Route path="/register" element={<UserRegister />} />
@@ -37,6 +39,8 @@ function App() {
           <Route path="/newctfdetail" element={<CtfDetail />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/footer" element={<Footer />} />
+          <Route path="/parallax" element={<parallax />} />
+
         </Routes>
       </BrowserRouter>
     </>
