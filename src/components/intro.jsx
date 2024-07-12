@@ -1,52 +1,40 @@
-import React from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import img1 from "../assets/img1.jpeg";
+  import React from "react";
+  import { Link } from "react-router-dom";
+  import { useSelector } from "react-redux";
+  import img1 from "../assets/img1.jpeg";
 
-const Intro = () => {
-  const { id } = useParams();
+  const Intro = () => {
+    const questions = useSelector(
+      (state) => state.questionSlice?.questionsByTopic[topic._id]?.questions
+    );
+    console.log("Fetched questiosn", questions);
 
-  console.log("The id is:", id);
+    if (!questions || questions.length === 0) {
+      return (
+        <div className="flex items-center justify-center min-h-screen bg-gray-800 text-white">
+          No questions found
+        </div>
+      );
+    }
 
-  const navigate = useNavigate();
-
-  const topics = useSelector(
-    (state) => state.topicSlice?.topics?.Result?.Topics
-  );
-  console.log("Fetched Topics", topics);
-
-  const theTopic = topics ? topics.find((topic) => topic._id === id) : null;
-  console.log("Fetched Topic", theTopic);
-
-  if (!theTopic) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-800 text-white">
-        Topic not found
+      <div className="flex flex-wrap items-center justify-center min-h-screen bg-gradient-to-br from-gray-500 to-gray-900 text-black">
+        {questions.map((question) => (
+          <div
+            key={question._id}
+            className="max-w-xs w-full p-2 m-2 bg-white rounded-lg shadow-lg"
+          >
+            <div className="p-6">
+              <p className="text-sm mb-8">{question.topic}</p>
+              <p className="text-sm mb-8">{question.description}</p>
+              <button className="px-6 py-3 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors duration-300">
+                <Link to={`/newctfdetail/${question._id}`}>Get Details</Link>
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     );
-  }
+  };
 
-  return (
-    <>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-500 to-gray-900 text-black">
-        <div className="max-w-2xl w-full p-2 bg-white rounded-lg shadow-lg">
-          <img
-            src={img1}
-            alt={theTopic}
-            className="w-full h-60 object-cover rounded-lg mb-7"
-          />
-          <div className="p-6">
-          <p className="text-sm mb-8">{theTopic?.topic}</p>
-            <p className="text-sm mb-8">{theTopic?.description}</p>
-
-            <button className="px-6 py-3 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors duration-300">
-              <Link to={`/newctfdetail/${id}`}>Get Details</Link>
-            </button>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
-
-export default Intro;
+  export default Intro;

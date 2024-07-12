@@ -16,14 +16,16 @@ const Topic = () => {
     (state) => state.topicSlice?.topics?.Result?.Topics || []
   );
 
+  console.log("The fetched topics: " + fetchedTopics);
+
   useEffect(() => {
     dispatch(fetchTopic());
   }, [dispatch]);
 
   const handleLearnMore = (topicId) => {
     if (isLoggedIn) {
-      navigate(`/topic/${topicId}`);
-      console.log("Navigated to topic  ");
+      navigate(`/topics/${topicId}`);
+      console.log("Navigated to topic");
     } else {
       swal.fire({
         icon: "error",

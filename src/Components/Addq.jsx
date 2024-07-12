@@ -38,11 +38,28 @@ const Addq = () => {
 
   const handleAddQuestions = async () => {
     try {
-      if (!title || !introduction || !tools || !scenario || !process || !topic) {
-        throw new Error("Title, Introduction, Tools, Scenario, Process, and Topic are required.");
+      if (
+        !title ||
+        !introduction ||
+        !tools ||
+        !scenario ||
+        !process ||
+        !topic
+      ) {
+        throw new Error(
+          "Title, Introduction, Tools, Scenario, Process, and Topic are required."
+        );
       }
 
-      const payload = { title, introduction, tools, scenario, process, quiz, topic };
+      const payload = {
+        title,
+        introduction,
+        tools,
+        scenario,
+        process,
+        quiz,
+        topic,
+      };
 
       console.log("Payload being sent to backend:", payload);
 
@@ -52,9 +69,19 @@ const Addq = () => {
         const { StatusCode, Result } = resultAction.payload.data;
         console.log("Result Action Payload:", resultAction.payload);
         if (StatusCode === 200) {
-          Swal.fire({ icon: "success", title: "Success!", text: Result.message, timer: 1500, showConfirmButton: false });
+          Swal.fire({
+            icon: "success",
+            title: "Success!",
+            text: Result.message,
+            timer: 1500,
+            showConfirmButton: false,
+          });
         } else {
-          Swal.fire({ icon: "warning", title: "Warning!", text: `Received unexpected status code: ${StatusCode}` });
+          Swal.fire({
+            icon: "warning",
+            title: "Warning!",
+            text: `Received unexpected status code: ${StatusCode}`,
+          });
         }
       } else if (addQuestions.rejected.match(resultAction)) {
         const errorMessage = resultAction.error.message;
@@ -62,7 +89,11 @@ const Addq = () => {
       }
     } catch (error) {
       console.error("Failed to create topic:", error);
-      Swal.fire({ icon: "error", title: "Error", text: "An error occurred while adding questions. Please try again later." });
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "An error occurred while adding questions. Please try again later.",
+      });
     }
   };
 

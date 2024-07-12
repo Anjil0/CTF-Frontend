@@ -11,17 +11,6 @@ export const addQuestions = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      // console.log(
-      //   "createTopic getting data",
-      //   title,
-      //   introduction,
-      //   tools,
-      //   scenario,
-      //   process,
-      //   quiz,
-      //   topic
-      // );
-
       console.log("quiz here" + quiz);
 
       const token = localStorage.getItem("accessToken");
@@ -57,6 +46,7 @@ export const fetchQuestions = createAsyncThunk(
   "fetchQuestions",
   async ({ topicId, token }, { rejectWithValue }) => {
     try {
+      const token = localStorage.getItem("accessToken");
       const response = await axios.get(
         `${apiURL}/api/question/getQuestionByTopic/${topicId}`,
         {
@@ -67,6 +57,7 @@ export const fetchQuestions = createAsyncThunk(
         }
       );
       console.log("Fetched Data:", response.data);
+      console.log("The topic ");
 
       return { data: response.data, topicId };
     } catch (error) {
@@ -96,8 +87,8 @@ const questionSlice = createSlice({
     builder.addCase(addQuestions.fulfilled, (state, action) => {
       const { data, topic } = action.payload || {};
       if (data) {
-        if (!state.questionsByTopic[topic]) {
-          state.questionsByTopic[topic] = [];
+        if (!state.questionsByTopic[topic._id]) {
+          state.questionsByTopic[topic._id] = [];
         }
         state.questionsByTopic[topic].push(data);
         state.isLoading = false;
