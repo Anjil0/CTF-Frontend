@@ -244,7 +244,7 @@ function CtfDetail() {
   };
 
   const checkAnswer = (questionId, answer) => {
-    return false; 
+    return false;
   };
 
   useEffect(() => {
