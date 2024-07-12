@@ -18,9 +18,11 @@ import { LogOut } from "../redux/loginLogoutSlice";
 const Admin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { topics, isLoading, error } = useSelector(
-    (state) => state?.topicSlice
-  );
+  // const { topics, isLoading, error } = useSelector(
+  //   (state) => state?.topicSlice
+  // );
+  const topics = useSelector((state) => state?.topicSlice?.topics?.Result?.Topics)
+  console.log("The topics are", topics);
 
   useEffect(() => {
     dispatch(fetchTopic());

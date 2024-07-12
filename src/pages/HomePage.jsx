@@ -14,9 +14,23 @@ import Footer from "../components/Footer";
 import Marquee from "react-fast-marquee";
 import Swal from "sweetalert2";
 import Content from "../components/content";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const roleOfCurrentUser = localStorage.getItem("role");
+  console.log("role of current user", roleOfCurrentUser);
+
+  useEffect(() => {
+    if (roleOfCurrentUser === "admin") {
+      navigate("/admin");
+    } else {
+      navigate("/");
+    }
+  }, []);
   const handleClick = () => {
     const mainElement = document.getElementById("main");
     if (mainElement) {
