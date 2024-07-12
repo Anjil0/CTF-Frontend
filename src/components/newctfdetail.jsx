@@ -3,7 +3,7 @@ import img from "../assets/img.png";
 import greenFlagImage from "../assets/greenflag.png";
 import redFlagImage from "../assets/redflag.png";
 import Confetti from "react-confetti";
-import NavBar from "./navbar";
+import NavBar from "./NavBar";
 
 function CtfDetail() {
   const [answer1, setAnswer1] = useState("");

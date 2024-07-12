@@ -11,15 +11,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const isLoggedIn = localStorage.getItem("userTokenHere")
+  const isLoggedIn = localStorage.getItem("userTokenHere");
   console.log("is logged in token here", isLoggedIn);
 
   const handleLogOut = () => {
-    localStorage.removeItem("userTokenHere")
-  navigate("/login")
+    localStorage.removeItem("userTokenHere");
+    navigate("/login");
   };
 
   const [isOpen, setIsOpen] = useState(false);
@@ -92,17 +92,21 @@ const NavBar = () => {
           <div>
             <button
               className="my-2 text-lg bg-rose-500 hover:scale-105 shadow-2xl transition-all px-3 py-1 rounded-full"
-
-            onClick={handleLogOut}>Logout</button>
-          </div> ) : (
-        <a
-          href="#"
-          className="mr-8 text-lg bg-rose-500 hover:scale-105 shadow-2xl transition-all px-3 py-1 rounded-full"
-        >
-          <li>
-            <Link to={"/register"}>Register</Link>
-          </li>
-        </a> )}
+              onClick={handleLogOut}
+            >
+              Logout
+            </button>
+          </div>
+        ) : (
+          <a
+            href="#"
+            className="mr-8 text-lg bg-rose-500 hover:scale-105 shadow-2xl transition-all px-3 py-1 rounded-full"
+          >
+            <li>
+              <Link to={"/register"}>Register</Link>
+            </li>
+          </a>
+        )}
       </ul>
       <div
         className={`lg:hidden fixed top-16 left-0 w-full bg-gray-200 bg-opacity-50 backdrop-blur-lg transition-transform duration-300 ${
@@ -149,15 +153,9 @@ const NavBar = () => {
                 className="hidden text-xl my-2 hover:scale-125 transition-all"
               />
             </a>
-            <div>
-
-
-
-        </div>
+            <div></div>
 
             {/* {isLoggedIn ?(<div><button onClick={handleLogOut}>Logout </button></div>): (<></>)} */}
-
-
           </div>
         </ul>
       </div>

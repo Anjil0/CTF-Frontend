@@ -1,8 +1,7 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import img1 from "../assets/img1.jpeg";
-import NavBar from "./navbar";
-
+import NavBar from "./NavBar";
 const topics = [
   {
     id: 1,
