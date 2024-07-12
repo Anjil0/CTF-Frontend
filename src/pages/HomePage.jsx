@@ -1,6 +1,6 @@
 import React from "react";
 import { ParallaxProvider, Parallax } from "react-scroll-parallax";
-import Navbar from "../components/NavBar";
+// import Navbar from "../components/NavBar";
 import background from "../assets/background.jpg";
 import ingLogo from "../assets/ingLogo.png";
 import islington from "../assets/islington.png";

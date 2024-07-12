@@ -1,26 +1,22 @@
 import React, { useEffect, useState } from "react";
 import add from "../assets/more.png";
 import setting from "../assets/setting.png";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import left from "../assets/left-arrow.png";
 import right from "../assets/right-arrow.png";
 import profilePic from "../assets/hacker.jpg";
-import { useNavigate } from "react-router-dom";
-import NavBar from "../components/NavBar";
-import Addq from "../components/Addq";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import NavBar from "../components/NavBar";
 import {
   createTopic,
   updateTopic,
   deleteTopic,
   fetchTopic,
 } from "../redux/topicSlice";
-
-import loginLogoutSlice, { LogOut } from "../redux/loginLogoutSlice";
+import { LogOut } from "../redux/loginLogoutSlice";
 
 const Admin = () => {
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { topics, isLoading, error } = useSelector(
     (state) => state?.topicSlice
@@ -47,15 +43,10 @@ const Admin = () => {
       console.error("Failed to update topic:", error);
     }
   };
+
   const [isFormOpen, setIsFormOpen] = useState(false);
-
-  const handleAddTopicClick = () => {
-    setIsFormOpen(true);
-  };
-
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isAddHovered, setIsAddHovered] = useState(false);
-  const navigate = useNavigate();
 
   const handleToggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -69,19 +60,11 @@ const Admin = () => {
     setIsAddHovered(false);
   };
 
-  const handleSubMenuHover = () => {
-    setIsAddHovered(true);
-  };
-
-  // const handleLogOut = () => {
-  //   localStorage.removeItem("userTokenHere")
-  // navigate("/login")
-  // };
-
   const handleLogOut = () => {
     dispatch(LogOut());
-    Navigate("/login");
+    navigate("/login");
   };
+
   return (
     <>
       <NavBar />
@@ -123,28 +106,28 @@ const Admin = () => {
             onMouseEnter={handleAddHover}
             onMouseLeave={handleAddLeave}
           >
-            <a href="#">
-              <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-14 flex items-center absolute top-0">
-                <img src={add} alt="" className="w-6 ml-8" />
-                <h2 className="ml-3 text-lg text-black">Add</h2>
-              </div>
-            </a>
+            <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-14 flex items-center absolute top-0">
+              <img src={add} alt="" className="w-6 ml-8" />
+              <h2 className="ml-3 text-lg text-black">Add</h2>
+            </div>
             {isAddHovered && (
               <div
                 className="absolute top-14 w-2/3 right-0 bg-black bg-opacity-20"
-                onMouseEnter={handleSubMenuHover}
+                onMouseEnter={handleAddHover}
                 onMouseLeave={handleAddLeave}
               >
-                <a href="#">
-                  <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-12 flex items-center">
-                    <h2 className="ml-3 text-lg text-black">Add Topic</h2>
-                  </div>
-                </a>
-                <a href="#">
-                  <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-12 flex items-center">
-                    <h2 className="ml-3 text-lg text-black">Add Questions</h2>
-                  </div>
-                </a>
+                <div
+                  className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-12 flex items-center"
+                  onClick={() => navigate("/add-topic")}
+                >
+                  <h2 className="ml-3 text-lg text-black">Add Topic</h2>
+                </div>
+                <div
+                  className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-12 flex items-center"
+                  onClick={() => navigate("/add-questions")}
+                >
+                  <h2 className="ml-3 text-lg text-black">Add Questions</h2>
+                </div>
               </div>
             )}
           </div>
@@ -155,25 +138,62 @@ const Admin = () => {
             <img src={setting} alt="Settings" className="w-6 ml-8" />
             <h2 className="text-lg ml-3 text-black">Settings</h2>
           </div>
-        </a>
-        <a href="#">
-          <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-20 flex items-center rounded-b-3xl absolute bottom-0">
-            <img src={handleLogOut} alt="" className="ml-5 w-8" />
+          <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-20 flex items-center rounded-b-3xl absolute bottom-0 cursor-pointer">
+            <img src={right} alt="Log Out" className="ml-5 w-8" />
             <h2 className="text-xl ml-3 text-black" onClick={handleLogOut}>
               Log Out
             </h2>
           </div>
-        </a>
-      </section>
-      <section
-        id="main"
-        className={`bg-black bg-opacity-20 backdrop-blur-sm w-9/12 h-[935px] absolute top-4 left-[460px] transition-transform ease-in-out duration-300 rounded-3xl shadow-2xl transform ${
-          isSidebarOpen
-            ? "scale-x-98 translate-x-0"
-            : "scale-x-[125%] translate-x-[-15%]"
-        }`}
-      ></section>
-    </div>
+        </section>
+        <section
+          id="main"
+          className={`bg-black bg-opacity-20 backdrop-blur-sm w-9/12 h-[935px] absolute top-4 left-[460px] transition-transform ease-in-out duration-300 rounded-3xl shadow-2xl transform ${
+            isSidebarOpen
+              ? "scale-x-98 translate-x-0"
+              : "scale-x-[125%] translate-x-[-15%]"
+          }`}
+        >
+          {isLoading ? (
+            <div className="flex justify-center items-center h-full">
+              <div className="text-white">Loading...</div>
+            </div>
+          ) : error ? (
+            <div className="flex justify-center items-center h-full text-red-500">
+              {error}
+            </div>
+          ) : (
+            <div className="p-10">
+              <h1 className="text-2xl font-bold mb-4 text-white">Topics</h1>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {topics.map((topic) => (
+                  <div
+                    key={topic._id}
+                    className="bg-white rounded-lg shadow-lg p-4"
+                  >
+                    <h2 className="text-xl font-bold mb-2">{topic.title}</h2>
+                    <p className="mb-4">{topic.description}</p>
+                    <button
+                      className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+                      onClick={() => handleDeleteTopic(topic._id)}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      className="bg-blue-500 text-white px-4 py-2 ml-2 rounded-lg hover:bg-blue-600"
+                      onClick={() =>
+                        handleUpdateTopic(topic._id, { title: "Updated Title" })
+                      }
+                    >
+                      Update
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </section>
+      </div>
+    </>
   );
 };
 
