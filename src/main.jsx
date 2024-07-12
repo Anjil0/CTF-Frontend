@@ -1,16 +1,32 @@
+// import React from "react";
+// import ReactDOM from "react-dom";
+// import { Provider } from "react-redux";
+// import { PersistGate } from "redux-persist/integration/react";
+// import App from "./App";
+// import "./index.css";
+// import { store, persistor } from "./redux/store.jsx";
+
+
+
+// createRoot(document.getElementById('root')).render(<App />,<Provider store={store}>
+// <PersistGate loading={null} persistor={persistor}>
+//   <App />
+// </PersistGate>
+// </Provider>,);
+
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import App from "./App";
 import "./index.css";
 import { store, persistor } from "./redux/store.jsx";
 
-ReactDOM.render(
+createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <App />
     </PersistGate>
-  </Provider>,
-  document.getElementById("root")
+  </Provider>
 );
+

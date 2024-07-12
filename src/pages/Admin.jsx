@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import left from "../assets/left-arrow.png";
 import right from "../assets/right-arrow.png";
 import profilePic from "../assets/hacker.jpg";
-import Addq from "../components/Addq";
+import Addq from "../Components/Addq";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createTopic,

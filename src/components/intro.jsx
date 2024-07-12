@@ -1,7 +1,8 @@
-import React from "react";
+// Removed the import statement for 'React' since it is not being used in the code.
+import React from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import img1 from "../assets/img1.jpeg";
-import NavBar from "../components/NavBar";
+import NavBar from "./NavBar";
 
 const topics = [
   {
