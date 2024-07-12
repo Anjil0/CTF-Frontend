@@ -20,6 +20,7 @@ import BarGraph from "./components/BarGraph.jsx";
 import BlogPage from "./pages/BlogPage.jsx";
 import Content from "./components/content.jsx";
 import BlogList from "./pages/BlogList";
+import Scenario from "./components/scenario.jsx";
 import BlogDetail from "./pages/BlogDetail";
 
 

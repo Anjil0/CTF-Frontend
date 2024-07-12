@@ -1,6 +1,6 @@
 import React from "react";
 import { ParallaxProvider, Parallax } from "react-scroll-parallax";
-// import Navbar from "../components/NavBar";
+import NavBar from "../components/NavBar";
 import background from "../assets/background.jpg";
 import ingLogo from "../assets/ingLogo.png";
 import islington from "../assets/islington.png";
@@ -34,14 +34,14 @@ const Home = () => {
     <>
       <ParallaxProvider>
         <div>
-          <Navbar />
+          <NavBar />
         </div>
         <div>
           <div
             id="hero"
             className="relative w-full h-[100vh] bg-gray-200 z-[2]"
           >
-            {/* <div className="absolute inset-0 bg-black bg-opacity-0 backdrop-filter backdrop-blur-lg"></div> */}
+
             <Parallax
               translateY={[-600, 200]}
               className="absolute top-[600px] left-[60px] text-[70px] font-bold text-gray-900 uppercase leading-none"
@@ -96,8 +96,8 @@ const Home = () => {
                 <div>
                   <h1 className="text-2xl font-black">Players</h1>
                   <div className="font-extralight">
-                    <p className="mt-3 text-2xl">01. Utshab Thapa</p>
-                    <p className="mt-3 text-2xl">02. Utshab Thapa</p>
+                    <p className="mt-3 text-2xl">01. Asim Khadka</p>
+                    <p className="mt-3 text-2xl">02. Asim Khadka</p>
                     <p className="mt-3 text-2xl">03. Utshab Thapa</p>
                     <p className="mt-3 text-2xl">04. Utshab Thapa</p>
                     <p className="mt-3 text-2xl">05. Utshab Thapa</p>
