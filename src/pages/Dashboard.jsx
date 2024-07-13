@@ -36,8 +36,8 @@ const Dashboard = () => {
           className="relative  bg-gray-300 w-[24%] h-[715px] m- p-3 rounded-xl"
         >
           <div className="inline-flex items-center justify-center w-full">
-            <hr className="w-64 h-px my-5 bg-gray-200 border-0 dark:bg-gray-700" />
-            <span className="absolute px-2 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-black dark:bg-gray-300 uppercase">
+            <hr className="w-64 h-px my-5 bg-gray-800 border-0 dark:bg-gray-700" />
+            <span className="absolute px-2 font-medium text-gray-900 -translate-x-1/2 bg-gray-300  left-1/2 dark:text-black dark:bg-gray-300 uppercase">
               overview
             </span>
           </div>

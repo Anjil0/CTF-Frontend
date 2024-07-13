@@ -1,5 +1,5 @@
-// src/components/Profile.jsx
 import React from "react";
+import { useSelector } from "react-redux";
 import hacker from "../assets/hacker.jpg";
 import {
   FaTwitter,
@@ -11,13 +11,23 @@ import {
 } from "react-icons/fa";
 
 const UserProfile = () => {
+  const userInfo = useSelector((state) => state?.loginLogout?.userInfo);
+  console.log("The user info is: " + userInfo);
+
+  if (!userInfo) {
+    return <div>Loading the topics.....</div>;
+  }
+
   return (
     <div className="bg-gray-100 text-black min-h-screen flex flex-col items-center ">
+          <h1> Hello {userInfo.fullname}</h1>
       <div className="bg-gray-300 w-full max-w-7xl rounded-2xl mt-10 p-8 shadow-xl">
+
         <div className="flex flex-col items-center">
+
           <div className="relative">
             <img
-              src={hacker} // Placeholder for profile image
+              src={hacker}
               alt="Profile"
               className="rounded-full w-32 h-32 object-cover object-center"
             />
@@ -25,29 +35,30 @@ const UserProfile = () => {
               <FaCheck className="text-white" />
             </div>
           </div>
+
           <h1 className="mt-4 text-2xl font-bold">
-            Utshab Thapa <span className="text-lg">[BUG HUNTER]</span>
+            {userInfo.username}
           </h1>
           <div className="flex mt-2 w-2/5  justify-between">
             <div className=" text-center w-1/3">
-              <p className="text-xl">812</p>
+              <p className="text-xl">{userInfo.roomsCompleted}</p>
               <p>Rooms Completed</p>
             </div>
             <div className=" text-center w-1/3">
-              <p className="text-xl">999</p>
-              <p>Level</p>
+              <p className="text-xl">{userInfo.email}</p>
+              <p>Email</p>
             </div>
             <div className="text-center w-1/3">
-              <p className="text-xl">44</p>
+              <p className="text-xl">{userInfo.badges}</p>
               <p>Badges</p>
             </div>
           </div>
         </div>
         <div className="mt-6 text-center">
-          <p className="text-rose-500 cursor-default">0day [BUG HUNTER]</p>
-          <p className="cursor-default">
-            Serial Entrepreneur / Child Safety Warrior / Penetration Tester
+          <p className="text-rose-500 cursor-default">
+            {userInfo.specialization}
           </p>
+          <p className="cursor-default">{userInfo.bio}</p>
           <div className="flex justify-center mt-4 space-x-4">
             <FaTwitter className="cursor-pointer" />
             <FaGithub className="cursor-pointer" />

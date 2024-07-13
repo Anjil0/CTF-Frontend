@@ -8,7 +8,6 @@ import Topic from "./components/topic";
 import Admin from "./pages/Admin.jsx";
 import "./App.css";
 import CtfDetail from "./components/newctfdetail.jsx";
-import Addt from "./components/Addt.jsx";
 import Leaderboard from "./components/leaderboard.jsx";
 import Footer from "./components/Footer.jsx";
 import AdminProfile from "./pages/AdminProfile.jsx";
@@ -22,9 +21,10 @@ import Content from "./components/content.jsx";
 import BlogList from "./pages/BlogList";
 import Scenario from "./components/scenario.jsx";
 import BlogDetail from "./pages/BlogDetail";
-
-
 import Addq from "./components/Addq.jsx";
+import Addt from "./components/Addt.jsx";
+import AdminPanel from "./components/CtfRequests.jsx";
+import AdminRequestsPage from "./components/CtfRequestsDetail.jsx";
 
 function App() {
   return (
@@ -33,6 +33,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/blogs" element={<BlogList />} />
+            <Route path="/ctfrequests" element={<AdminPanel/>} />
+            <Route path="/adminrequests/:id" element={<AdminRequestsPage />} />
             <Route path="/blog/:id" element={<BlogDetail />} />
             <Route path="/" element={<Home />} />
             <Route path="/graph" element={<Graph />} />
@@ -55,6 +57,8 @@ function App() {
             <Route path="/footer" element={<Footer />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/adminprofile" element={<AdminProfile />} />
+            <Route path="/addTopics" element={<Addt />} />
+            <Route path="/addQuestions" element={<Addq />} />
           </Routes>
         </BrowserRouter>
       </div>

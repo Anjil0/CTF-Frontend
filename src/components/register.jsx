@@ -7,8 +7,12 @@ import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert2";
 import { Country } from "country-state-city";
 import Select from "react-select";
+import usePasswordToggle from "./usePasswordToggle";
+
 
 const UserRegister = () => {
+
+  const [PasswordInputType, ToggleIcon] = usePasswordToggle();
   const countryData = Country.getAllCountries();
   const countryOptions = countryData.map((country) => ({
     value: country.isoCode,
@@ -151,13 +155,15 @@ const UserRegister = () => {
             <input
               id="password"
               name="password"
-              type="password"
+              type={PasswordInputType}
               autoComplete="current-password"
               required
               className="bg-white appearance-none rounded-md relative block w-full h-9 px-3 py-2 border-30 text-gray-900"
               value={formData.password}
               onChange={handleChange}
             />
+            <span className="password-toggle-icon">{ToggleIcon}</span>
+
           </div>
           <div className="flex">
             <button

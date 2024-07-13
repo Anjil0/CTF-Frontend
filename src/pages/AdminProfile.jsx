@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import hacker from "../assets/hacker.jpg";
+import { useSelector } from "react-redux";
 
 const AdminProfile = () => {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const navigate = useNavigate();
+  const userInfo = useSelector((state) => state?.loginLogout?.userInfo);
+  console.log("The user info is: " + userInfo);
 
   return (
     <div className="flex flex-col items-center bg-gray-100 min-h-screen p-4">
@@ -24,8 +27,8 @@ const AdminProfile = () => {
             </button>
           </div>
           <div className="flex-grow mt-20 ml-4">
-            <h1 className="text-xl font-semibold">Clay Jensen</h1>
-            <p>Northridge, California(CA), 91326, USA</p>
+            <h1 className="text-xl font-semibold">{userInfo.fullname}</h1>
+            <p>{userInfo.country}</p>
             <p>
               Age: 24 | Gender: Male | Status:{" "}
               <span className="text-green-500">Active</span>
@@ -33,16 +36,10 @@ const AdminProfile = () => {
           </div>
           <div className="mt-6 ml-4">
             <p className="mb-4">
-              <strong>Role:</strong> Administrator
+              <strong>Role:</strong> {userInfo.role}
             </p>
             <p className="mb-4">
-              <strong>Email:</strong> clay.jensen@email.com
-            </p>
-            <p className="mb-4">
-              <strong>Contact:</strong> (+61) (45687) (45687)
-            </p>
-            <p className="mb-4 pb-4">
-              <strong>Region:</strong> Central US
+              <strong>Email:</strong> {userInfo.email}
             </p>
           </div>
         </section>

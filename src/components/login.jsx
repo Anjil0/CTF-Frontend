@@ -1,23 +1,24 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { doLogin } from "../redux/loginLogoutSlice";
 import logo from "../assets/hackerimage.jpg";
-import { Link } from "react-router-dom";
+import usePasswordToggle from "./usePasswordToggle";
 import swal from "sweetalert2";
 
 const LoginUser = () => {
+  const [PasswordInputType, ToggleIcon] = usePasswordToggle();
+
   const isLoggedIn = localStorage.getItem("accessToken");
-  console.log("is logged in token here", isLoggedIn);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isLoggedIn) {
       navigate("/");
     }
-  });
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  }, [isLoggedIn, navigate]);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -94,16 +95,23 @@ const LoginUser = () => {
             <label htmlFor="password" className="sr-only">
               Password
             </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="current-password"
-              required
-              className="appearance-none rounded-md relative block w-64 h-8 px-3 py-2 border-30"
-              value={formData.password}
-              onChange={handleChange}
-            />
+            <div className="relative">
+              <input
+                id="password"
+                name="password"
+                type={PasswordInputType}
+                autoComplete="current-password"
+                required
+                className="appearance-none rounded-md relative block w-64 h-8 px-3 py-2 border-3 border-gray-300 text-gray-900"
+                value={formData.password}
+                onChange={handleChange}
+
+              />
+              <span className="absolute inset-y-0 left-30 pl-30 items-center cursor-pointer">
+              {ToggleIcon}
+            </span>
+
+            </div>
           </div>
           <div className="flex">
             <button
@@ -114,7 +122,7 @@ const LoginUser = () => {
               {loading ? "Logging in..." : "Login"}
             </button>
           </div>
-          <p className="text-white font-bold mr-80">
+          <p className="text-white font-bold">
             Don't have an account?{" "}
             <span className="text-red-600 cursor-pointer">
               <Link to="/register"> Register</Link>

@@ -65,22 +65,20 @@ const Home = () => {
                 Learn more about our page and play the games you want <br />
                 and hone your skills to the max. Good luck Hackers!
               </div>
-              <div>
+              <div className="flex justify-between max-w-72 mt-6">
                 <button
                   onClick={handleClick}
                   className="text-xl bg-lime-500 px-3 py-2 rounded-2xl hover:scale-105 transition-all hover:bg-lime-500 shadow-2xl"
-                >
+                  >
                   Learn More
                 </button>
-              </div>
-              <div>
                 <button
                   onClick={handleClickgames}
-                  className="absolute top-[225px] left-40 text-xl bg-gray-300 shadow-lg px-3 py-2 rounded-2xl hover:scale-105 transition-all hover:bg-rose-500"
-                >
+                  className=" top-[225px] left-40 text-xl bg-gray-300 shadow-lg px-3 py-2 rounded-2xl hover:scale-105 transition-all hover:bg-rose-500"
+                  >
                   Play Games
                 </button>
-              </div>
+                </div>
               <div>
                 <button
                   onClick={handleClickgames}
@@ -100,7 +98,7 @@ const Home = () => {
               translateY={[-55, 55]}
               opacity={[6, -3]}
               rotate={[-96, 100]}
-              className="bg-gray-300 shadow-2xl bg-opacity-50 w-1/3 h-[560px] rounded-xl absolute top-11"
+              className="bg-gray-300 shadow-2xl bg-opacity-50 w-1/3 h-[560px] rounded-xl absolute top-8"
             >
               <h1 className="text-5xl text-center text-black uppercase font-bold mt-2 bg-gradient-to-r from-rose-500 via-red-500 to-yellow-500 bg-clip-text text-transparent">
                 Leaderboard

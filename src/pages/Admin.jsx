@@ -1,52 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import add from "../assets/more.png";
 import setting from "../assets/setting.png";
+import logout from "../assets/exit.png";
 import left from "../assets/left-arrow.png";
 import right from "../assets/right-arrow.png";
 import profilePic from "../assets/hacker.jpg";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../components/NavBar";
-import {
-  createTopic,
-  updateTopic,
-  deleteTopic,
-  fetchTopic,
-} from "../redux/topicSlice";
-import { LogOut } from "../redux/loginLogoutSlice";
+import { fetchTopic } from "../redux/topicSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Admin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const { topics, isLoading, error } = useSelector(
-  //   (state) => state?.topicSlice
-  // );
-  const topics = useSelector((state) => state?.topicSlice?.topics?.Result?.Topics)
-  console.log("The topics are", topics);
+  const roleOfCurrentUser = localStorage.getItem("role");
+
+  useEffect(() => {
+    if (roleOfCurrentUser === "user") {
+      navigate("/");
+    } else {
+      navigate("/admin");
+    }
+  }, [roleOfCurrentUser, navigate]);
+
+  const { topics, isLoading, error } = useSelector((state) => state.topicSlice);
+  const ourTopics = topics?.Result?.Topics || [];
 
   useEffect(() => {
     dispatch(fetchTopic());
   }, [dispatch]);
 
-  const handleDeleteTopic = async (topicId) => {
-    try {
-      await dispatch(deleteTopic(topicId));
-      dispatch(fetchTopic());
-    } catch (error) {
-      console.error("Failed to delete topic:", error);
-    }
-  };
-
-  const handleUpdateTopic = async (topicId, updatedData) => {
-    try {
-      await dispatch(updateTopic({ topicId, updatedData }));
-      dispatch(fetchTopic());
-    } catch (error) {
-      console.error("Failed to update topic:", error);
-    }
-  };
-
-  const [isFormOpen, setIsFormOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isAddHovered, setIsAddHovered] = useState(false);
 
@@ -62,9 +45,12 @@ const Admin = () => {
     setIsAddHovered(false);
   };
 
-  const handleLogOut = () => {
-    dispatch(LogOut());
-    navigate("/login");
+  const handleSubMenuHover = () => {
+    setIsAddHovered(true);
+  };
+
+  const handleCTFRequests = () => {
+    navigate("/ctfrequests");
   };
 
   return (
@@ -108,28 +94,36 @@ const Admin = () => {
             onMouseEnter={handleAddHover}
             onMouseLeave={handleAddLeave}
           >
-            <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-14 flex items-center absolute top-0">
-              <img src={add} alt="" className="w-6 ml-8" />
-              <h2 className="ml-3 text-lg text-black">Add</h2>
-            </div>
+            <a href="#">
+              <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-14 flex items-center absolute top-0">
+                <img src={add} alt="" className="w-6 ml-8" />
+                <h2 className="ml-3 text-lg text-black">Add</h2>
+              </div>
+            </a>
             {isAddHovered && (
               <div
-                className="absolute top-14 w-2/3 right-0 bg-black bg-opacity-20"
-                onMouseEnter={handleAddHover}
+                className="absolute top-14 w-4/5 right-0 bg-black bg-opacity-20 z-10"
+                onMouseEnter={handleSubMenuHover}
                 onMouseLeave={handleAddLeave}
               >
-                <div
-                  className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-12 flex items-center"
-                  onClick={() => navigate("/add-topic")}
-                >
-                  <h2 className="ml-3 text-lg text-black">Add Topic</h2>
-                </div>
-                <div
-                  className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-12 flex items-center"
-                  onClick={() => navigate("/add-questions")}
-                >
-                  <h2 className="ml-3 text-lg text-black">Add Questions</h2>
-                </div>
+                <a href="#">
+                  <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-12 flex items-center">
+                    <h2 className="ml-3 text-lg text-black"><Link to={"/addTopics"}> Add Topic</Link></h2>
+                  </div>
+                </a>
+                <a href="#">
+                  <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-12 flex items-center">
+                    <h2 className="ml-3 text-lg text-black"><Link to={"/addQuestions"}> Add Questions</Link></h2>
+                  </div>
+                </a>
+                <a href="#">
+                  <div
+                    className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-12 flex items-center"
+                    onClick={handleCTFRequests}
+                  >
+                    <h2 className="ml-3 text-lg text-black">CTF requests</h2>
+                  </div>
+                </a>
               </div>
             )}
           </div>
@@ -140,59 +134,115 @@ const Admin = () => {
             <img src={setting} alt="Settings" className="w-6 ml-8" />
             <h2 className="text-lg ml-3 text-black">Settings</h2>
           </div>
-          <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-20 flex items-center rounded-b-3xl absolute bottom-0 cursor-pointer">
-            <img src={right} alt="Log Out" className="ml-5 w-8" />
-            <h2 className="text-xl ml-3 text-black" onClick={handleLogOut}>
-              Log Out
-            </h2>
-          </div>
+          <a href="#">
+            <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-14 flex items-center absolute bottom-0">
+              <img src={logout} alt="Log Out" className="ml-8 w-6" />
+              <h2 className="text-lg ml-3 text-black">Log Out</h2>
+            </div>
+          </a>
         </section>
         <section
           id="main"
-          className={`bg-black bg-opacity-20 backdrop-blur-sm w-9/12 h-[935px] absolute top-4 left-[460px] transition-transform ease-in-out duration-300 rounded-3xl shadow-2xl transform ${
+          className={`bg-gray-200 h-[650px] absolute left-[250px] duration-[300ms]   ${
             isSidebarOpen
-              ? "scale-x-98 translate-x-0"
-              : "scale-x-[125%] translate-x-[-15%]"
+              ? "w-[79%] translate-x-[50px]"
+              : "w-[100%] translate-x-[-250px]"
           }`}
         >
-          {isLoading ? (
-            <div className="flex justify-center items-center h-full">
-              <div className="text-white">Loading...</div>
+          <div className="flex justify-evenly mt-6">
+            <div
+              className={`  h-[180px] bg-sky-500 rounded-2xl duration-[300ms] flex flex-col   ${
+                isSidebarOpen ? "w-[250px] " : "w-[320px]"
+              }`}
+            >
+              <h1 className="w-full h-full text-4xl relative top-7 left-5 uppercase font-bold text-white mt-5">
+                200,000
+              </h1>
+              <h1 className=" w-full h-full text-xl relative -top-4 left-5  uppercase font-bold text-white mt-8">
+                Users
+              </h1>
             </div>
-          ) : error ? (
-            <div className="flex justify-center items-center h-full text-red-500">
-              {error}
+            <div
+              className={`  h-[180px] bg-lime-500 rounded-2xl duration-[300ms] flex flex-col  ${
+                isSidebarOpen ? "w-[250px] " : "w-[320px]"
+              }`}
+            >
+              <h1 className="w-full h-full text-4xl relative top-7 left-5 uppercase font-bold text-white mt-5">
+                186,000
+              </h1>
+              <h1 className=" w-full h-full text-xl relative -top-4 left-5  uppercase font-bold text-white mt-8">
+                Flags Captured
+              </h1>
             </div>
-          ) : (
-            <div className="p-10">
-              <h1 className="text-2xl font-bold mb-4 text-white">Topics</h1>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {topics.map((topic) => (
-                  <div
-                    key={topic._id}
-                    className="bg-white rounded-lg shadow-lg p-4"
-                  >
-                    <h2 className="text-xl font-bold mb-2">{topic.title}</h2>
-                    <p className="mb-4">{topic.description}</p>
-                    <button
-                      className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-                      onClick={() => handleDeleteTopic(topic._id)}
-                    >
-                      Delete
-                    </button>
-                    <button
-                      className="bg-blue-500 text-white px-4 py-2 ml-2 rounded-lg hover:bg-blue-600"
-                      onClick={() =>
-                        handleUpdateTopic(topic._id, { title: "Updated Title" })
-                      }
-                    >
-                      Update
-                    </button>
-                  </div>
-                ))}
+            <div
+              className={`  h-[180px] bg-orange-500 rounded-2xl duration-[300ms] flex flex-col  ${
+                isSidebarOpen ? "w-[250px] " : "w-[320px]"
+              }`}
+            >
+              <h1 className="w-full h-full text-4xl relative top-7 left-5 uppercase font-bold text-white mt-5">
+                186,000
+              </h1>
+              <h1 className=" w-full h-full text-xl relative -top-4 left-5  uppercase font-bold text-white mt-8">
+                Flags Captured
+              </h1>
+            </div>
+            <div
+              className={`  h-[180px] bg-rose-600 rounded-2xl  duration-[300ms] flex flex-col  ${
+                isSidebarOpen ? "w-[250px] " : "w-[320px]"
+              }`}
+            >
+              <h1 className="w-full h-full text-4xl relative top-7 left-5 uppercase font-bold text-white mt-5">
+                186
+              </h1>
+              <h1 className=" w-full h-full text-xl relative -top-4 left-5  uppercase font-bold text-white mt-8">
+                Games
+              </h1>
+            </div>
+          </div>
+          <div className="flex justify-evenly mt-6">
+            <div
+              className={`  h-[390px] bg-gray-100 rounded-2xl duration-[300ms] ${
+                isSidebarOpen ? "w-[710px] " : "w-[910px]"
+              }`}
+            >
+              <h1 className=" text-4xl text-gray-600 font-black relative left-5 top-5">
+                Popular Topics
+              </h1>
+              <div className="relative top-10 left-5 text-xl">
+                {isLoading ? (
+                  <p>Loading...</p>
+                ) : error ? (
+                  <p>Error: {error}</p>
+                ) : (
+                  ourTopics.map((topic) => (
+                    <p className="mb-3" key={topic._id}>
+                      {topic.topic}
+                    </p>
+                  ))
+                )}
               </div>
             </div>
-          )}
+
+            <div
+              className={`  h-[390px] bg-gray-100 rounded-2xl duration-[300ms] ${
+                isSidebarOpen ? "w-[340px] " : "w-[440px]"
+              }`}
+            >
+              <h1 className=" text-4xl text-gray-600 font-black relative left-5 top-5">
+                Leaderboard
+              </h1>
+              <div className="relative top-10 left-5 text-xl">
+                <p className="mb-3">Player</p>
+                <p className="mb-3">Player</p>
+                <p className="mb-3">Player</p>
+                <p className="mb-3">Player</p>
+                <p className="mb-3">Player</p>
+                <p className="mb-3">Player</p>
+                <p className="mb-3">Player</p>
+                <p className="mb-3">Player</p>
+              </div>
+            </div>
+          </div>
         </section>
       </div>
     </>
