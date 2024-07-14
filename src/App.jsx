@@ -13,9 +13,8 @@ import Addt from "./components/Addt.jsx";
 import Leaderboard from "./components/leaderboard.jsx";
 import Footer from "./components/Footer.jsx";
 import UserProfile from "./components/UserProfile.jsx";
-import ParallaxComponent from "./pages/parallax.jsx";
 import Addq from "./components/Addq.jsx";
-import NavBar from "./components/NavBar.jsx";
+import NavBar  from "./components/NavBar.jsx";
 
 function App() {
   return (

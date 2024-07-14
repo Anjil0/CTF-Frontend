@@ -50,7 +50,7 @@ const content = () => {
           </svg>
         </a>
       </div>
-      {/* <div className="p-4 md:w-1/3 sm:mb-0 mb-6">
+      <div className="p-4 md:w-1/3 sm:mb-0 mb-6">
         <div className="rounded-lg h-64 overflow-hidden">
           <img alt="content" className="object-cover object-center h-full w-full" src="https://dummyimage.com/1203x503" />
         </div>
@@ -121,7 +121,7 @@ const content = () => {
             <path d="M5 12h14M12 5l7 7-7 7"></path>
           </svg>
         </a>
-      </div> */}
+      </div>
     </div>
   </div>
 </section>

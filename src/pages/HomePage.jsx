@@ -3,6 +3,7 @@ import background from "../assets/background.jpg";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
+import NavBar from "../components/NavBar";
 
 const Home = () => {
   const navigate = useNavigate();
