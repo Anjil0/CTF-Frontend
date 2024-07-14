@@ -1,211 +1,94 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import img1 from "../assets/img1.jpeg";
-import NavBar from "./NavBar";
+import NavBar from "./navbar";
+import Typewriter from "typewriter-effect";
 
 const topics = [
   {
-    id: 1,
-    title: "Introduction to Cyber Security",
-    image: img1,
+    imgSrc: "https://dummyimage.com/720x400",
+    title: "The Catalyzer",
     description:
-      "Introduction: Enumeration is the ordered listing of all items in a collection, often used in math and computer science.",
+      "Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.",
   },
   {
-    id: 2,
-    title: "Ethical Hacking – Using ViewDNS ",
-    image: img1,
-    description: "Introduction to Malware Analysis.",
-  },
-  {
-    id: 3,
-    title: "Scanning Network Using Censys.io ",
-    image: img1,
-    description: "Introduction to Network Security.",
-  },
-  {
-    id: 4,
-    title: "Ethical Hacking - Using WhatWeb",
-    image: img1,
-    description: "Introduction to Web Security.",
-  },
-  {
-    id: 5,
-    title: "Digital Forensic Steganography",
-    image: img1,
-    description: "Introduction to Incident Response.",
-  },
-  {
-    id: 6,
-    title: "Footprinting Using Have I Been Pwned ",
-    image: img1,
-    description: "Introduction to Threat Intelligence.",
-  },
-  {
-    id: 1,
-    title: "Scanning Network",
-    image: img1,
+    imgSrc: "https://dummyimage.com/721x401",
+    title: "The 400 Blows",
     description:
-      "Introduction: Enumeration is the ordered listing of all items in a collection, often used in math and computer science.",
+      "Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.",
   },
   {
-    id: 2,
-    title: "Ethical Hacking – Using ViewDNS ",
-    image: img1,
-    description: "Introduction to Malware Analysis.",
-  },
-  {
-    id: 3,
-    title: "Scanning Network Using Censys.io ",
-    image: img1,
-    description: "Introduction to Network Security.",
-  },
-  {
-    id: 4,
-    title: "Ethical Hacking - Using WhatWeb",
-    image: img1,
-    description: "Introduction to Web Security.",
-  },
-  {
-    id: 5,
-    title: "Digital Forensic Steganography",
-    image: img1,
-    description: "Introduction to Incident Response.",
-  },
-  {
-    id: 6,
-    title: "Footprinting Using Have I Been Pwned ",
-    image: img1,
-    description: "Introduction to Threat Intelligence.",
-  },
-  {
-    id: 1,
-    title: "Scanning Network",
-    image: img1,
+    imgSrc: "https://dummyimage.com/722x402",
+    title: "Shooting Stars",
     description:
-      "Introduction: Enumeration is the ordered listing of all items in a collection, often used in math and computer science.",
+      "Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.",
   },
-  {
-    id: 2,
-    title: "Ethical Hacking – Using ViewDNS ",
-    image: img1,
-    description: "Introduction to Malware Analysis.",
-  },
-  {
-    id: 3,
-    title: "Scanning Network Using Censys.io ",
-    image: img1,
-    description: "Introduction to Network Security.",
-  },
-  {
-    id: 4,
-    title: "Ethical Hacking - Using WhatWeb",
-    image: img1,
-    description: "Introduction to Web Security.",
-  },
-  {
-    id: 5,
-    title: "Digital Forensic Steganography",
-    image: img1,
-    description: "Introduction to Incident Response.",
-  },
-  {
-    id: 6,
-    title: "Footprinting Using Have I Been Pwned ",
-    image: img1,
-    description: "Introduction to Threat Intelligence.",
-  },
+  // Add more topics as needed
 ];
 
-const Topic = () => {
-  const navigate = useNavigate();
-
+const Topics = () => {
   return (
     <>
-      <NavBar/>
-      <div className="flex w-full min-h-screen bg-gray-500 ">
-        {/* Sidebar Navigation */}
-        <nav className="w-1/6 bg-gray-800 text-white font-size-15 p-4 min-h-screen bg-gray-500">
-          <h2 className="text-2xl font-bold mb-10">Dive Into Challenges..</h2>
-          <ul>
-            <li className="mb-5">
-              <button
-                className="w-full text-left px-4 py-2 bg-blue-600 rounded hover:bg-blue-700"
-                onClick={() => navigate("/learn")}
-              >
-                Quiz Hour
-              </button>
-            </li>
-            <li className="mb-5">
-              <button
-                className="w-full text-left px-4 py-2 bg-green-600 rounded hover:bg-green-700"
-                onClick={() => navigate("/play")}
-              >
-                Check Rank
-              </button>
-            </li>
-            <li className="mb-5">
-              <button
-                className="w-full text-left px-4 py-2 bg-yellow-600 rounded hover:bg-yellow-700"
-                onClick={() => navigate("/practice")}
-              >
-                History
-              </button>
-            </li>
-            <li className="mb-5">
-              <button
-                className="w-full text-left px-4 py-2 bg-purple-600 rounded hover:bg-purple-700"
-                onClick={() => navigate("/practice")}
-              >
-                Hint
-              </button>
-            </li>
-          </ul>
-        </nav>
-
-        {/* Main Content */}
-        <div className="flex-grow p-12">
-          {/* Hero Section */}
-          <div className="bg-gray-200 p-10 mb-6 rounded-lg shadow-lg text-center">
-            <h1 className="text-4xl font-bold text-gray-800">
-              Welcome to the Cybersecurity Learning Platform
-            </h1>
-            <p className="mt-4 text-gray-600">
-              Explore the topics below to start your journey in cybersecurity.
-            </p>
-          </div>
-
-          {/* Topics Section */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-14">
-            {topics.map((topic) => (
-              <div
-                key={topic.id}
-                className="relative bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-              >
-                <img
-                  src={topic.image}
-                  alt={topic.title}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-3">
-                  <h3 className="text-lg font-bold text-gray-800">
-                    {topic.title}
-                  </h3>
-                  <p className="text-gray-600">{topic.description}</p>
-                  <button
-                    onClick={() => navigate(`/topic/${topic.id}`)}
-                    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300"
-                  >
-                    Learn More
-                  </button>
+      <div>
+        <NavBar />
+      </div>
+      <section className="container h-80 bg-gray-300 mb-5">
+        <h2 className="text-[25px] md:text-5xl font-bold mb-4">
+          <Typewriter
+            options={{
+              strings: [
+                'Innovation <span class="text-lime-600 text-[30px]">is in our DNA.</span>',
+              ],
+              autoStart: true,
+              loop: true,
+              delay: 75,
+              deleteSpeed: 50,
+            }}
+          />
+        </h2>
+      </section>
+      <section className="text-gray-600 body-font">
+        <div className="container px-5 py-5 mx-auto">
+          <div className="flex flex-wrap -m-4">
+            {topics.map((topic, index) => (
+              <div key={index} className="p-4 md:w-1/3">
+                <div className="h-full border-2 border-gray-400 border-opacity-60 rounded-lg overflow-hidden">
+                  <img
+                    className="lg:h-48 md:h-36 w-full object-cover object-center"
+                    src={topic.imgSrc}
+                    alt="blog"
+                  />
+                  <div className="p-4">
+                    <h1 className="title-font text-lg font-medium text-gray-900 mb-3">
+                      {topic.title}
+                    </h1>
+                    <p className="leading-relaxed mb-2">{topic.description}</p>
+                    <div className="flex items-center flex-wrap">
+                      <a className="text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0">
+                        Learn More
+                        <svg
+                          className="w-4 h-4 ml-2"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M5 12h14"></path>
+                          <path d="M12 5l7 7-7 7"></path>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };
 
-export default Topic;
+export default Topics;

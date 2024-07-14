@@ -6,7 +6,7 @@ import left from "../assets/left-arrow.png";
 import right from "../assets/right-arrow.png";
 import profilePic from "../assets/hacker.jpg";
 import { useNavigate } from "react-router-dom";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/navbar";
 
 const Admin = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -27,6 +27,10 @@ const Admin = () => {
 
   const handleSubMenuHover = () => {
     setIsAddHovered(true);
+  };
+
+  const handleCTFRequests = () => {
+    navigate("/ctfrequests");
   };
 
   return (
@@ -78,7 +82,7 @@ const Admin = () => {
             </a>
             {isAddHovered && (
               <div
-                className="absolute top-14 w-2/3 right-0 bg-black bg-opacity-20"
+                className="absolute top-14 w-4/5 right-0 bg-black bg-opacity-20 z-10"
                 onMouseEnter={handleSubMenuHover}
                 onMouseLeave={handleAddLeave}
               >
@@ -90,6 +94,14 @@ const Admin = () => {
                 <a href="#">
                   <div className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-12 flex items-center">
                     <h2 className="ml-3 text-lg text-black">Add Questions</h2>
+                  </div>
+                </a>
+                <a href="#">
+                  <div
+                    className="hover:bg-black hover:bg-opacity-20 transition-all bg-opacity-50 w-full h-12 flex items-center"
+                    onClick={handleCTFRequests}
+                  >
+                    <h2 className="ml-3 text-lg text-black">CTF requests</h2>
                   </div>
                 </a>
               </div>

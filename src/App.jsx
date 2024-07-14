@@ -22,8 +22,10 @@ import BlogPage from "./pages/BlogPage.jsx";
 import Content from "./components/content.jsx";
 import BlogList from "./pages/BlogList";
 import BlogDetail from "./pages/BlogDetail";
-
-
+import AdminPanel from "./components/CtfRequests.jsx";
+import AdminRequestsPage from "./components/CtfRequestsDetail.jsx";
+import HeroSection from "./pages/HeroSection.jsx";
+import TopicQuestions from "./pages/TopicQuestions.jsx";
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
       <div className="mt-16">
         <BrowserRouter>
           <Routes>
+            <Route path="/topicquestions" element={<TopicQuestions />} />
+            <Route path="/herosection" element={<HeroSection />} />
             <Route path="/blogs" element={<BlogList />} />
             <Route path="/blog/:id" element={<BlogDetail />} />
             <Route path="/" element={<Home />} />
@@ -41,6 +45,8 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/blogpage" element={<BlogPage />} />
             <Route path="/content" element={<Content />} />
+            <Route path="/ctfrequests" element={<AdminPanel />} />
+            <Route path="/adminrequests/:id" element={<AdminRequestsPage />} />
             <Route path="/register" element={<UserRegister />} />
             <Route path="/login" element={<UserLogin />} />
             <Route path="/ctfdetailpage" element={<CtfDetail />} />

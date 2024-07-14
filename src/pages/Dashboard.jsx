@@ -1,6 +1,6 @@
 // Dashboard.jsx
 import React from "react";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/navbar";
 import hacker from "../assets/hacker.jpg";
 import utshab from "../assets/utshab.jpg";
 import { FaLinkedin, FaInstagram, FaFacebook } from "react-icons/fa";
