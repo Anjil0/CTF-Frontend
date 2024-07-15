@@ -41,11 +41,12 @@ const NavBar = () => {
       </div>
       <ul className="hidden lg:flex  w-2/4">
         <li className=" text-lg hover:bg-yellow-500 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-xl mr-4">
-          <Link to="/dashboard">Dashboard</Link>
-        </li>
-        <li className=" text-lg hover:bg-yellow-500 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-xl mr-4">
           <Link to="/">Home</Link>
         </li>
+        <li className=" text-lg hover:bg-yellow-500 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-xl mr-4">
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
+
         <li className=" text-lg hover:bg-lime-500 hover:text-black hover:shadow-2xl transition-all px-3 py-1 rounded-xl mr-4">
           <Link to="/topic">CTF</Link>
         </li>
@@ -78,11 +79,11 @@ const NavBar = () => {
             </li>
             <li className="mr-3">
               <Link to={"/userProfile"}>
-              <FontAwesomeIcon
-                icon={faUserCircle}
-                className="text-3xl hover:scale-125 transition-all"
-              /></Link>
-
+                <FontAwesomeIcon
+                  icon={faUserCircle}
+                  className="text-3xl hover:scale-125 transition-all"
+                />
+              </Link>
             </li>
             <li>
               <button

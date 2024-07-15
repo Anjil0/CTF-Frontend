@@ -5,6 +5,7 @@ import { doLogin } from "../redux/loginLogoutSlice";
 import logo from "../assets/hackerimage.jpg";
 import usePasswordToggle from "./usePasswordToggle";
 import swal from "sweetalert2";
+import NavBar from "./NavBar.jsx";
 
 const LoginUser = () => {
   const [PasswordInputType, ToggleIcon] = usePasswordToggle();
@@ -59,21 +60,22 @@ const LoginUser = () => {
   };
 
   return (
-    <div className="flex">
-      <div className="w-1/2">
+    <div className="basis-3/12 flex h-[90vh]">
+      <NavBar></NavBar>
+      <div>
         <img
           src={logo}
           alt="hacker theme image"
-          className="w-full h-full object-cover rounded-lg ml-30"
+          className="w-full h-full object-cover  ml-30"
         />
       </div>
-      <div className="w-1/2 flex flex-col justify-center p-4 bg-black">
+      <div className="basis-3/4 flex flex-col justify-center items-center p-4 bg-black">
         <div>
           <h2 className="text-4xl font-extrabold text-left text-red-600">
             Login
           </h2>
         </div>
-        <form className="w-90 mb-4 mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="w-full mb-4 mt-8 space-y-6 " onSubmit={handleSubmit}>
           <div>
             <p className="text-left text-white">Email:</p>
             <label htmlFor="email-address" className="sr-only">
@@ -85,7 +87,7 @@ const LoginUser = () => {
               type="email"
               autoComplete="email"
               required
-              className="appearance-none relative block w-64 h-8 px-3 py-2 border-3 border-gray-300 text-gray-900"
+              className="appearance-none rounded-md relative block w-64 h-8 px-3 py-2 border-3 border-gray-300 text-gray-900"
               value={formData.email}
               onChange={handleChange}
             />
@@ -105,18 +107,16 @@ const LoginUser = () => {
                 className="appearance-none rounded-md relative block w-64 h-8 px-3 py-2 border-3 border-gray-300 text-gray-900"
                 value={formData.password}
                 onChange={handleChange}
-
               />
-              <span className="absolute inset-y-0 left-30 pl-30 items-center cursor-pointer">
-              {ToggleIcon}
-            </span>
-
+              <span className="absolute inset-y-0 left-[14.5rem] pl-30 flex items-center cursor-pointer">
+                {ToggleIcon}
+              </span>
             </div>
           </div>
           <div className="flex">
             <button
               type="submit"
-              className="py-2 px-4 border border-transparent font-medium rounded-md text-white bg-red-600 hover:bg-black"
+              className="py-2 px-4 border border-transparent font-medium rounded-md text-white bg-red-600 hover:bg-red-400"
               disabled={loading}
             >
               {loading ? "Logging in..." : "Login"}

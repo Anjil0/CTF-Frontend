@@ -77,8 +77,8 @@ const loginLogOutSlice = createSlice({
         state.success = null;
       })
       .addCase(doRegister.fulfilled, (state) => {
-        state.loading = false;
-        state.error = null;
+        sta
+        state.te.loading = false;error = null;
         state.success = true;
       })
       .addCase(doRegister.rejected, (state, action) => {
